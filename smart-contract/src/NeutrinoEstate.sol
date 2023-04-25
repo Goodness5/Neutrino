@@ -21,6 +21,7 @@ contract NeutrinoEstate {
         address tenant;
         address owner;
         uint duration;
+        uint timestart;
     }
 
     struct PropertyInfo {
@@ -74,12 +75,26 @@ contract NeutrinoEstate {
         require (newRent.amount==msg.value, "insufficient amount");
         require (newRent.owner==rentedproperty.owner, "shay u dey whyne me ni");
         newRent.tenant=msg.sender;
+        newRent.timestart=block.timestamp;
         ERC20 token = ERC20(rentedproperty.fractionContractAddress);
         require(
             token.transfer(msg.sender, _amt),
             "Renting failed"
             );
         disableOwner(_nftID);
+
+   }
+
+   function stopRent(uint _nftID)  public{
+     PropertyInfo storage rentedproperty = property[_nftID];
+     Rent storage newRent = rented[_nftID];
+        if (block.timestamp > (newRent.duration + newRent.timestart)) {
+        rentedproperty.isRented = false;
+        rentedproperty.ownerdisabled=false;
+        ERC20 token = ERC20(rentedproperty.fractionContractAddress);
+        token.transferFrom(newRent.tenant, newRent.owner, newRent.amount);
+        return;
+    }
 
    }
 
@@ -122,7 +137,7 @@ contract NeutrinoEstate {
         Registry[PropertyIndex].hasFractionalized = true;
 
         //Awaiting fractiontoken contract from jerry.
-        // FractionToken fractionToken = new FractionToken(_nftContractAddress, _nftId, msg.sender, _supply, _tokenName, _tokenSymbol);
+        // FractionToken fractionToken = new FractionToken(_nftContractAddress, _nftId, msg.sender, _supply, _tokenName, _tokenSymbol, address(this));
         // Registry[index].fractionContractAddress = address(fractionToken);
         //An approve function needed from script after function call.
     }
@@ -142,14 +157,12 @@ contract NeutrinoEstate {
                 Registry[propertyIndex].isBuyer == msg.sender,
             "Not available"
         );
+        require(Registry[propertyIndex].propertyStatus == Status.sale, 'for sale only');
         require(msg.value == amountToPay, "not enough eth");
         require(_amount <= FractionedERC20token.totalSupply());
         require(Registry[propertyIndex].hasFractionalized, "buyoff only");
 
-        if (
-            block.timestamp >
-            Registry[propertyIndex].InitialdepositTimestamp + 30 days
-        ) {
+        if (block.timestamp > Registry[propertyIndex].InitialdepositTimestamp + 30 days){
             uint afterDamagesdeduction = (Registry[propertyIndex].amountPaid *
                 70) / 100;
             Registry[propertyIndex].amountPaid = 0;
@@ -157,12 +170,10 @@ contract NeutrinoEstate {
                 value: afterDamagesdeduction
             }("");
             require(sent, "Failed to send Ether");
+            Registry[propertyIndex].isBuyer == address(0x0);
         }
         if (Registry[propertyIndex].isBuyer == address(0x0)) {
-            FractionedERC20token.transferFrom(
-                Registry[propertyIndex].owner,
-                msg.sender,
-                _amount
+            FractionedERC20token.transferFrom( Registry[propertyIndex].owner, msg.sender, _amount
             );
             Registry[propertyIndex].isBuyer = msg.sender;
             Registry[propertyIndex].amountPaid += amountToPay;
@@ -172,10 +183,7 @@ contract NeutrinoEstate {
             Registry[propertyIndex].amountPaid += amountToPay;
         }
 
-        if (
-            FractionedERC20token.balanceOf(msg.sender) ==
-            FractionedERC20token.totalSupply()
-        ) {
+        if (FractionedERC20token.balanceOf(msg.sender) == FractionedERC20token.totalSupply()) {
             Registry[propertyIndex].isSold = true;
         }
     }

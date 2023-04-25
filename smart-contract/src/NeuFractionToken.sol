@@ -8,69 +8,38 @@ contract FractionToken is ERC20, ERC20Burnable {
     address public NFTAddress;
     uint256 public NFTId;
     address public NFTOwner;
-
     address public ContractDeployer;
-
-
     address[] tokenOwners;
     mapping(address => bool) isHolding;
+    address Estate;
 
-    constructor(address _NFTAddress, uint256  _NFTId, address _NFTOwner, uint256  _supply, string memory _tokenName, string memory _tokenTicker) ERC20(_tokenName, _tokenTicker) {
+    constructor(address _NFTAddress, uint256  _NFTId, address _NFTOwner, uint256  _supply, string memory _tokenName, string memory _tokenSymbol, address _estate) ERC20(_tokenName, _tokenSymbol) {
         NFTAddress = _NFTAddress;
         NFTId = _NFTId;
-        NFTOwner = _NFTOwner;
-   
-        
-        ContractDeployer = msg.sender;
-        
+        NFTOwner = _NFTOwner;       
+        ContractDeployer = msg.sender;  
+        Estate = _estate;  
         _mint(_NFTOwner, _supply);
     }
 
-    function transfer(address to, uint256 amount) override public returns (bool) {
-        //calculate royalty fee
-        uint royaltyFee = amount/ 100;
-        uint afterRoyaltyFee = amount - royaltyFee;
+   function transfer(address to, uint256 amount) public override returns (bool) {
+        require(balanceOf(msg.sender) == totalSupply(), 'cannot transfer');
         address owner = _msgSender();
-
-        //send royalty fee to owner
-        _transfer(owner, NFTOwner, royaltyFee);
-        //send rest to receiver
-        _transfer(owner, to, afterRoyaltyFee);
-        
+        _transfer(owner, to, amount);
         return true;
     }
 
-    function transferFrom(
-        address from,
-        address to,
-        uint256 amount
-    ) public virtual override returns (bool) {
+    function transferFrom(address from, address to, uint256 amount) public virtual override returns (bool) {
+        require(balanceOf(from) + balanceOf(to) == totalSupply(), 'cannot use transferfrom');
         address spender = _msgSender();
         _spendAllowance(from, spender, amount);
-
-        //calculate royalty fee
-        uint royaltyFee = amount / 100;
-        uint afterRoyaltyFee = amount - royaltyFee;
-
-        //send royalty fee to owner
-        _transfer(from, NFTOwner, royaltyFee);
-        //send rest to receiver
-        _transfer(from, to, afterRoyaltyFee);
-
+        _transfer(from, to, amount);
         return true;
     }
 
-    function burn(uint256 amount) public virtual override {
-        _burn(_msgSender(), amount);
+    function burn(uint256 amount, address addressToBurn) public {
+        require(msg.sender == Estate, 'not authorized');
+        _burn(addressToBurn, amount);
     }
 
-    function updateNFTOwner(address _newOwner) public {
-        require(msg.sender == ContractDeployer, "Only contract deployer can call this function");
-
-        NFTOwner = _newOwner;
-    }
-
-    function returnTokenOwners() public view returns(address[] memory) {
-        return tokenOwners;
-    }
 }
