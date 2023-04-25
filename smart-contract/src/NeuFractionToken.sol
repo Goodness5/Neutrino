@@ -14,7 +14,7 @@ contract FractionToken is ERC20, ERC20Burnable {
     address[] tokenOwners;
     mapping(address => bool) isHolding;
 
-    constructor(address _NFTAddress, uint256  _NFTId, address _NFTOwner, uint256  _royaltyPercentage, uint256  _supply, string memory _tokenName, string memory _tokenTicker) ERC20(_tokenName, _tokenTicker) {
+    constructor(address _NFTAddress, uint256  _NFTId, address _NFTOwner, uint256  _supply, string memory _tokenName, string memory _tokenTicker) ERC20(_tokenName, _tokenTicker) {
         NFTAddress = _NFTAddress;
         NFTId = _NFTId;
         NFTOwner = _NFTOwner;
@@ -35,8 +35,6 @@ contract FractionToken is ERC20, ERC20Burnable {
         _transfer(owner, NFTOwner, royaltyFee);
         //send rest to receiver
         _transfer(owner, to, afterRoyaltyFee);
-
-       // addNewUserRemoveOld(to, owner);
         
         return true;
     }
