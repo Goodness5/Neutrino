@@ -15,6 +15,13 @@ contract NeutrinoEstate {
         rent
     }
 
+    struct Rent{
+        uint amount;
+        address tenant;
+        address owner;
+        uint duration;
+    }
+
     struct PropertyInfo {
         address owner;
         address nftContractAddress;
@@ -28,18 +35,51 @@ contract NeutrinoEstate {
         uint amountPaid;
         bool isSold;
         bool isRented;
+        bool ownerdisabled;
+        // mapping of nftId to Rent struct
+        mapping(uint => Rent) rented; 
     }
 
     PropertyInfo[] Registry;
     uint[] NFTIDs;
+
+    // mapping of the nftId of each properties to the property info
+    mapping(uint => PropertyInfo) property; 
     mapping(address => mapping(uint256 => uint256)) PropertyNftIndex;
 
-    // modifier onlyPropOwner {
-    //     require(msg.sender == PropertyInfo.owner, "NOT PROPERTY OWNER");
+    modifier onlyPropOwner(uint nftId) {
+        PropertyInfo storage prop = property[nftId];
+        require(prop.ownerdisabled==false, "you don't have this priviledge");
+        require(msg.sender == prop.owner, "NOT PROPERTY OWNER");
 
-    //     _;
+        _;
 
-    // }
+    }
+
+    function disableOwner (uint nftId) internal{
+        PropertyInfo storage prop = property[nftId];
+        prop.ownerdisabled=true;
+
+    }
+    
+    
+
+    function RentProperty(uint _amt, uint _nftID) public payable{
+        PropertyInfo storage rentedproperty = property[_propID];
+        require(rentedproperty.propertyStatus==rent, "propert not for rent");
+        require(rentedproperty.isRented == false, "propert already rented out");
+        require(rentedproperty.owner != address(0), "property does not exist");
+        Rent storage newRent = rentedproperty.rented[_nftID];
+        require (newRent.amount==msg.value, "insufficient amount");
+        require (newRent.owner==rentedproperty.owner, "shay u dey whyne me ni");
+        newRent.tenant=msg.sender;
+        require(
+            NFT.lease(rentedproperty.owner, msg.sender, _nftID),
+            "Renting failed"
+            );
+
+   }
+
 
     function depositPropertyNft(
         address _nftContractAddress,
@@ -129,6 +169,7 @@ contract NeutrinoEstate {
             Registry[propertyIndex].isSold = true;
         }
     }
+
 
     function getRefundOnProperty(
         address _nftContractAddress,
