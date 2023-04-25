@@ -67,6 +67,7 @@ function buyPropertyInstallMent(uint _amount, uint _nftID, address _nftContractA
     uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];  
     ERC20 FractionedERC20token = ERC20(Registry[propertyIndex].fractionContractAddress);
     require(Registry[propertyIndex].isBuyer == address(0x0) || Registry[propertyIndex].isBuyer == msg.sender , 'Not available');
+    require(Registry[propertyIndex].propertyStatus == Status.sale, 'for sale only');
     require(msg.value == amountToPay, 'not enough eth');
     require(_amount <= FractionedERC20token.totalSupply());
     require(Registry[propertyIndex].hasFractionalized, 'buyoff only');
@@ -76,6 +77,7 @@ function buyPropertyInstallMent(uint _amount, uint _nftID, address _nftContractA
         Registry[propertyIndex].amountPaid = 0;
         (bool sent, ) = payable(Registry[propertyIndex].isBuyer).call{value: afterDamagesdeduction}("");
         require(sent, "Failed to send Ether");
+        Registry[propertyIndex].isBuyer == address(0x0);
     }
     if(Registry[propertyIndex].isBuyer == address(0x0)){
     FractionedERC20token.transferFrom(Registry[propertyIndex].owner, msg.sender, _amount);
