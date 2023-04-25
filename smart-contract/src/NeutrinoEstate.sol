@@ -37,9 +37,9 @@ contract NeutrinoEstate {
         bool isRented;
         bool ownerdisabled;
         // mapping of nftId to Rent struct
-        mapping(uint => Rent) rented; 
     }
 
+    mapping(uint => Rent) rented;
     PropertyInfo[] Registry;
     uint[] NFTIDs;
 
@@ -65,21 +65,30 @@ contract NeutrinoEstate {
     
 
     function RentProperty(uint _amt, uint _nftID) public payable{
-        PropertyInfo storage rentedproperty = property[_propID];
-        require(rentedproperty.propertyStatus==rent, "propert not for rent");
+        PropertyInfo storage rentedproperty = property[_nftID];
+        require(rentedproperty.propertyStatus==Status.rent, "propert not for rent");
         require(rentedproperty.isRented == false, "propert already rented out");
         require(rentedproperty.owner != address(0), "property does not exist");
-        Rent storage newRent = rentedproperty.rented[_nftID];
+        Rent storage newRent = rented[_nftID];
         require (newRent.amount==msg.value, "insufficient amount");
         require (newRent.owner==rentedproperty.owner, "shay u dey whyne me ni");
         newRent.tenant=msg.sender;
+        ERC20 token = ERC20(rentedproperty.fractionContractAddress);
         require(
-            NFT.lease(rentedproperty.owner, msg.sender, _nftID),
+            token.transfer(msg.sender, _amt),
             "Renting failed"
             );
+        disableOwner(_nftID);
 
    }
 
+    function getAllProperties() public view returns (PropertyInfo[] memory) {
+        PropertyInfo[] memory allProperties = new PropertyInfo[](NFTIDs.length);
+        for (uint i = 0; i < NFTIDs.length; i++) {
+            allProperties[i] = property[NFTIDs[i]];
+        }
+        return allProperties;
+    }
 
     function depositPropertyNft(
         address _nftContractAddress,
@@ -89,14 +98,14 @@ contract NeutrinoEstate {
         ERC721 NFT = ERC721(_nftContractAddress);
         //approveFunction from script required
         NFT.safeTransferFrom(msg.sender, address(this), _nftId);
-        PropertyInfo memory newProperty;
+        PropertyInfo storage newProperty = property[_nftId];
         newProperty.owner = msg.sender;
         newProperty.nftContractAddress = _nftContractAddress;
         newProperty.nftId = _nftId;
         newProperty.hasFractionalized = false;
         newProperty.propertyStatus = _status;
         PropertyNftIndex[_nftContractAddress][_nftId] = Registry.length - 1;
-        Registry.push(newProperty);
+        // Registry.push(newProperty);
         NFTIDs.push(_nftId);
     }
 
