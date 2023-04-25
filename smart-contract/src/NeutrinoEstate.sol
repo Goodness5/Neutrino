@@ -20,6 +20,7 @@ contract NeutrinoEstate {
         address tenant;
         address owner;
         uint duration;
+        uint timestart;
     }
 
     struct PropertyInfo {
@@ -73,12 +74,26 @@ contract NeutrinoEstate {
         require (newRent.amount==msg.value, "insufficient amount");
         require (newRent.owner==rentedproperty.owner, "shay u dey whyne me ni");
         newRent.tenant=msg.sender;
+        newRent.timestart=block.timestamp;
         ERC20 token = ERC20(rentedproperty.fractionContractAddress);
         require(
             token.transfer(msg.sender, _amt),
             "Renting failed"
             );
         disableOwner(_nftID);
+
+   }
+
+   function stopRent(uint _nftID)  public{
+     PropertyInfo storage rentedproperty = property[_nftID];
+     Rent storage newRent = rented[_nftID];
+        if (block.timestamp > (newRent.duration + newRent.timestart)) {
+        rentedproperty.isRented = false;
+        rentedproperty.ownerdisabled=false;
+        ERC20 token = ERC20(rentedproperty.fractionContractAddress);
+        token.transferFrom(newRent.tenant, newRent.owner, newRent.amount);
+        return;
+    }
 
    }
 
