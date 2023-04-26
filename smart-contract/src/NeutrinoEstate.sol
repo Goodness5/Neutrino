@@ -48,6 +48,7 @@ contract NeutrinoEstate is IERC721Receiver {
     uint[] public ForRentNFTIDS;
     mapping(address => mapping(uint256 => uint256)) PropertyNftIndex;
     mapping(address => mapping(address => defaulter)) Defaulter;
+    mapping(address => mapping(address => address)) RentDefaulter;
     uint private damagesAccumulated;
     uint private commissionAccumulated;
     mapping(uint => Rent) rented;
@@ -357,6 +358,7 @@ contract NeutrinoEstate is IERC721Receiver {
         require(rentedproperty.propertyStatus==Status.rent, "propert not for rent");
         require(rentedproperty.isRented == false, "property already rented out");
         require(rentedproperty.owner != address(0), "property does not exist");
+        require(RentDefaulter[_nftContractAddress][msg.sender]!=msg.sender, "defaulter");
         Rent storage newRent = rented[_nftID];
         require (msg.value == amountToPay, "insufficient amount");       
         require (newRent.owner == rentedproperty.owner, "shay u dey whyne me ni");
@@ -379,12 +381,20 @@ contract NeutrinoEstate is IERC721Receiver {
    function stopRent(uint _nftID, address _nftContractAddress)  public{
     uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
     PropertyInfo memory rentedproperty = Registry[propertyIndex];
-     Rent storage newRent = rented[_nftID];
+    Rent storage newRent = rented[_nftID];
     require(msg.sender==rentedproperty.owner || msg.sender==newRent.tenant, "not authorised");
-        if (block.timestamp > (newRent.duration + newRent.timestart + 5184000)) {
-        rentedproperty.isRented = false;
-        newRent.tenant=address(0);
-        
+    if (msg.sender==newRent.tenant){
+            if (block.timestamp > (newRent.duration + newRent.timestart)) {
+            rentedproperty.isRented = false;
+            newRent.tenant=address(0);
+        }
+        }
+     if (msg.sender==newRent.owner){
+            if (block.timestamp > (newRent.duration + newRent.timestart +  7890000)) {
+            rentedproperty.isRented = false;
+            RentDefaulter[_nftContractAddress][newRent.tenant]=newrent.tenant;
+            newRent.tenant=address(0);
+        }
         FractionToken token = FractionToken(rentedproperty.fractionContractAddress);
         token.transferFrom(newRent.tenant, newRent.owner, newRent.amount);
         return;
