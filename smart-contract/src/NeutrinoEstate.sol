@@ -9,8 +9,20 @@ import './NeuFractionToken.sol';
 
 //0.00001 per 50 erc20 token;
 
-contract NeutrinoEstate is ReentrancyGuard {
-    enum Status {sale,rent}
+contract NeutrinoEstate {
+    enum Status {
+        sale,
+        rent
+    }
+
+    struct Rent{
+        uint amount;
+        address tenant;
+        address owner;
+        uint duration;
+        uint timestart;
+    }
+
     struct PropertyInfo {
         address owner;
         address nftContractAddress;
