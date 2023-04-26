@@ -2,10 +2,5 @@
 src = 'src'
 out = 'out'
 libs = ['lib']
-<<<<<<< HEAD
 verbosity=5
-=======
-verbosity = 5
-
->>>>>>> 249b16fee7ab535414d19db155c88aebae9e96dc
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
