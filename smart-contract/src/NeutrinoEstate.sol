@@ -4,7 +4,6 @@ import "../lib/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol
 import "../lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "../lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
 import "../lib/openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Holder.sol";
-import '../lib/openzeppelin-contracts/contracts/security/ReentrancyGuard.sol';
 import './NeuFractionToken.sol';
 
 //0.00001 per 50 erc20 token;
@@ -49,7 +48,8 @@ contract NeutrinoEstate {
     mapping(address => mapping(address => defaulter)) Defaulter;
     uint private damagesAccumulated;
     uint private commissionAccumulated;
-   
+    mapping(uint => Rent) rented;
+    mapping(uint => PropertyInfo) property;
     constructor(){}
 
     function depositPropertyNft(address _nftContractAddress, uint256 _nftId,  Status _status, uint _price) external {
@@ -63,17 +63,18 @@ contract NeutrinoEstate {
         newProperty.hasFractionalized = false;
         newProperty.propertyStatus = _status;
         newProperty.price = _price;
-        PropertyNftIndex[_nftContractAddress][_nftId] = Registry.length - 1;
         Registry.push(newProperty);
+        PropertyNftIndex[_nftContractAddress][_nftId] = Registry.length - 1;
         NFTIDs.push(_nftId);
     }
 
-    function createFraction(address _nftContractAddress, uint256 _nftId, uint256 _supply, string memory _tokenName, string memory _tokenSymbol) external {
+    function createFraction(address _nftContractAddress, uint256 _nftId, uint256 _supply, string memory _tokenName, string memory _tokenSymbol) external returns(address) {
         uint256 PropertyIndex = PropertyNftIndex[_nftContractAddress][_nftId];
         require(Registry[PropertyIndex].owner == msg.sender, "Only the owner of this NFT can access it");
         Registry[PropertyIndex].hasFractionalized = true;
         FractionToken fractionToken = new FractionToken(_nftContractAddress, _nftId, msg.sender, _supply, _tokenName, _tokenSymbol, address(this));
         Registry[PropertyIndex].fractionContractAddress = address(fractionToken);
+        return address(fractionToken);
         //An approve function needed from script after function call.
     }
 
@@ -111,7 +112,7 @@ contract NeutrinoEstate {
             FractionedERC20token.burn(FractionedERC20token.balanceOf(msg.sender), msg.sender);
     }
 
-    function RetrievePropertyOnDefault(address _nftContractAddress, uint256 _nftId) external nonReentrant {
+    function RetrievePropertyOnDefault(address _nftContractAddress, uint256 _nftId) external {
         uint256 propIndex = PropertyNftIndex[_nftContractAddress][_nftId];
         FractionToken FractionedERC20token = FractionToken(Registry[propIndex].fractionContractAddress);
         require(msg.sender == Registry[propIndex].owner, "NOT PROPERTY OWNER");
@@ -159,6 +160,7 @@ contract NeutrinoEstate {
         ERC721URIStorage nftAddress = ERC721URIStorage(_nftContractAddress);
         FractionToken FractionedERC20token = FractionToken(Registry[propertyIndex].fractionContractAddress);
         require(Registry[propertyIndex].isBuyer == address(0x0), 'buying in progress');
+        require(rented[_nftId].tenant == address(0x0), 'apartment in rent');
         require(Registry[propertyIndex].owner == msg.sender, 'not owner');
         nftAddress.safeTransferFrom(address(this), msg.sender, _nftId);
         FractionedERC20token.burn(FractionedERC20token.balanceOf(msg.sender), msg.sender);
@@ -173,4 +175,56 @@ contract NeutrinoEstate {
         }
         NFTIDs.pop();
     }
+
+
+
+    function RentProperty(uint _amt, uint _nftID, address _nftContractAddress) public payable{                 
+        uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
+        FractionToken FractionedERC20token = FractionToken(Registry[propertyIndex].fractionContractAddress);
+        uint amountInToken = FractionedERC20token.totalSupply()/2; 
+        uint amountToPay = 0.0000002 ether * amountInToken;
+
+//@audit
+        PropertyInfo storage rentedproperty = property[_nftID];
+        require(rentedproperty.propertyStatus==Status.rent, "propert not for rent");
+        require(rentedproperty.isRented == false, "property already rented out");
+        require(rentedproperty.owner != address(0), "property does not exist");
+        
+
+        Rent storage newRent = rented[_nftID];
+        require (msg.value == amountToPay, "insufficient amount");       
+        require (newRent.owner == rentedproperty.owner, "shay u dey whyne me ni");
+        newRent.tenant=msg.sender;
+        newRent.timestart=block.timestamp;
+        FractionToken token = FractionToken(rentedproperty.fractionContractAddress);
+        require( token.transferFrom(rentedproperty.owner, msg.sender, _amt), "Renting failed");
+   }
+
+   function stopRent(uint _nftID)  public{
+//@audit   
+     PropertyInfo storage rentedproperty = property[_nftID];
+    
+     Rent storage newRent = rented[_nftID];
+        if (block.timestamp > (newRent.duration + newRent.timestart)) {
+
+//@audit    
+        rentedproperty.isRented = false;
+        
+        FractionToken token = FractionToken(rentedproperty.fractionContractAddress);
+        token.transferFrom(newRent.tenant, newRent.owner, newRent.amount);
+        return;
+    }
+
+   }
+
+//@audit
+      function getAllProperties() public view returns (PropertyInfo[] memory) {
+        PropertyInfo[] memory allProperties = new PropertyInfo[](NFTIDs.length);
+        for (uint i = 0; i < NFTIDs.length; i++) {
+            allProperties[i] = property[NFTIDs[i]];
+        }
+        return allProperties;
+    }
+
+
 }
