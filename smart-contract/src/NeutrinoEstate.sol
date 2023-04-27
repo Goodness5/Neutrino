@@ -346,24 +346,27 @@ contract NeutrinoEstate is IERC721Receiver {
     }
 
 function RentProperty(uint _nftID, address _nftContractAddress) public payable{                 
-        uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
-        FractionToken FractionedERC20token = FractionToken(Registry[propertyIndex].fractionContractAddress);
-        uint amountInToken = FractionedERC20token.totalSupply()/2; 
-        // uint amountToPay = 0.0000002 ether * amountInToken;
-        PropertyInfo memory rentedproperty = Registry[propertyIndex];
-        // require(rentedproperty.propertyStatus==Status.rent, "propert not for rent");
-        require(rentedproperty.isRented == false, "property already rented out");
-        require(rentedproperty.owner != address(0), "property does not exist");
-        require(RentDefaulter[_nftContractAddress][msg.sender]!=msg.sender, "defaulter");
-        require (msg.value == rentedproperty.price, "insufficient amount");
-        Rent storage newRent = rented[_nftID];
-        require (newRent.owner != address(0), "not assigned");
-        newRent.tenant=msg.sender;
-        newRent.amount= amountInToken;
-        newRent.timestart=block.timestamp;
-        FractionToken token = FractionToken(rentedproperty.fractionContractAddress);
-        require( token.transferFrom(rentedproperty.owner, msg.sender, amountInToken), "Renting failed");
-   }
+    uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
+    FractionToken FractionedERC20token = FractionToken(Registry[propertyIndex].fractionContractAddress);
+    uint amountInToken = FractionedERC20token.totalSupply()/2; 
+    PropertyInfo memory rentedproperty = Registry[propertyIndex];
+    require(rentedproperty.isRented == false, "property already rented out");
+    require(rentedproperty.owner != address(0), "property does not exist");
+    require(RentDefaulter[_nftContractAddress][msg.sender]!=msg.sender, "defaulter");
+    require(msg.value == rentedproperty.price, "insufficient amount");
+    Rent storage newRent = rented[_nftID];
+    require(newRent.owner != address(0), "not assigned");
+    newRent.tenant = msg.sender;
+    newRent.amount = amountInToken;
+    newRent.timestart = block.timestamp;
+    FractionToken token = FractionToken(rentedproperty.fractionContractAddress);
+    uint ownerAmount = (rentedproperty.price * 9) / 10; // 90% of the price for the owner
+    payable(rentedproperty.owner).transfer(ownerAmount); // transfer the owner's share
+    uint contractAmount = rentedproperty.price - ownerAmount; // 10% of the price for the contract
+    require(token.transferFrom(rentedproperty.owner, msg.sender, amountInToken), "Renting failed");
+    commissionAccumulated += contractAmount;
+}
+
 
     function stopRent(uint _nftID, address _nftContractAddress)  public{
     uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
