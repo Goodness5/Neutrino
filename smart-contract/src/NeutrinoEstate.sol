@@ -345,7 +345,7 @@ contract NeutrinoEstate is IERC721Receiver {
         return (ForSaleNFTIDs, ForRentNFTIDS);
     }
 
- function RentProperty(uint _nftID, address _nftContractAddress) public payable{                 
+function RentProperty(uint _nftID, address _nftContractAddress) public payable{                 
         uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
         FractionToken FractionedERC20token = FractionToken(Registry[propertyIndex].fractionContractAddress);
         uint amountInToken = FractionedERC20token.totalSupply()/2; 
@@ -365,7 +365,7 @@ contract NeutrinoEstate is IERC721Receiver {
         require( token.transferFrom(rentedproperty.owner, msg.sender, amountInToken), "Renting failed");
    }
 
-   function stopRent(uint _nftID, address _nftContractAddress)  public{
+    function stopRent(uint _nftID, address _nftContractAddress)  public{
     uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
     PropertyInfo memory rentedproperty = Registry[propertyIndex];
     Rent storage newRent = rented[_nftID];
