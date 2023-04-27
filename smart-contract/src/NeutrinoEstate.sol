@@ -357,7 +357,7 @@ function RentProperty(uint _nftID, address _nftContractAddress) public payable{
         require(RentDefaulter[_nftContractAddress][msg.sender]!=msg.sender, "defaulter");
         require (msg.value == rentedproperty.price, "insufficient amount");
         Rent storage newRent = rented[_nftID];
-        require (newRent.owner != address(0), "shay u dey whyne me ni");
+        require (newRent.owner != address(0), "not assigned");
         newRent.tenant=msg.sender;
         newRent.amount= amountInToken;
         newRent.timestart=block.timestamp;
