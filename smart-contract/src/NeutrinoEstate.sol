@@ -43,6 +43,7 @@ contract NeutrinoEstate is IERC721Receiver{
         uint balanceAfterDamages;
     }
 
+    address owner;
     PropertyInfo[] Registry;
     uint[] public ForSaleNFTIDs;
     uint[] public ForRentNFTIDS;
@@ -52,10 +53,13 @@ contract NeutrinoEstate is IERC721Receiver{
     uint private commissionAccumulated;
     mapping(uint => Rent) rented;
     mapping(uint => PropertyInfo) property;
-    constructor(){}
+    constructor(address _owner){
+        owner = _owner;
+    }
 
 
     function depositPropertyNft(address _nftContractAddress, uint256 _nftId,  uint _status, uint _price) external {
+        require(_price > 0.0000002 ether, 'not enough');
         ERC721URIStorage NFT = ERC721URIStorage(_nftContractAddress);
         //approveFunction from script required
         require(_status == 0 || _status == 1, 'invalid option');
@@ -116,6 +120,7 @@ contract NeutrinoEstate is IERC721Receiver{
         uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftId];
         FractionToken FractionedERC20token = FractionToken(Registry[propertyIndex].fractionContractAddress);
         ERC721URIStorage nftAddress = ERC721URIStorage(_nftContractAddress);
+        require(Registry[propertyIndex].amountPaid == Registry[propertyIndex].price);
         require(Registry[propertyIndex].isBuyer == msg.sender, 'not buyer');
         require(FractionedERC20token.balanceOf(msg.sender) == FractionedERC20token.totalSupply(), 'payment outstanding');
             Registry[propertyIndex].isSold = true;
@@ -254,18 +259,17 @@ contract NeutrinoEstate is IERC721Receiver{
 
    }
 
-    // function getAllProperties() public view returns (PropertyInfo[] memory) {
-    //     PropertyInfo[] memory allProperties = new PropertyInfo[](NFTIDs.length);
-    //     for (uint i = 0; i < NFTIDs.length; i++) {
-    //         allProperties[i] = property[NFTIDs[i]];
-    //     }
-    //     return allProperties;
-    // }
-
     function getAllProperties() public view returns (PropertyInfo[] memory) {
         return Registry;
     }
 
+    function withdraw(uint _amount)public {
+        uint totalwithdrawable = damagesAccumulated + commissionAccumulated;
+        require(msg.sender == owner);
+        require(_amount <= totalwithdrawable, 'insufficent commission');
+        (bool sent, ) = payable(owner).call{value : totalwithdrawable}('');
+        require(sent, 'sending failed');
+    }
 function onERC721Received(
         address,
         address from,
