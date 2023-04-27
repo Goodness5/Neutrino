@@ -254,7 +254,7 @@ contract NeutrinoEstate is IERC721Receiver{
      if (msg.sender==newRent.owner){
             if (block.timestamp > (newRent.duration + newRent.timestart +  7890000)) {
             rentedproperty.isRented = false;
-            RentDefaulter[_nftContractAddress][newRent.tenant]=newrent.tenant;
+            RentDefaulter[_nftContractAddress][newRent.tenant]=newRent.tenant;
             newRent.tenant=address(0);
         }
         FractionToken token = FractionToken(rentedproperty.fractionContractAddress);
