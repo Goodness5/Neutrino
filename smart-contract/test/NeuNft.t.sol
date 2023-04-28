@@ -10,9 +10,10 @@ contract NeuNFTTest is Test {
     NeutrinoEstate public estate;
 
     address owner = mkaddr("owner");
+    address contractDeployer = mkaddr("contractDeployer");
 
     function setUp() public {
-        estate = new NeutrinoEstate();
+        estate = new NeutrinoEstate(contractDeployer);
         nft = new NeuNFT();
     }
 
