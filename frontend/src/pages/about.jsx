@@ -6,6 +6,7 @@ import AboutDiscover from "../about/AboutDiscover";
 import AboutNumbers from "../about/AboutNumbers";
 import AboutContact from "../about/AboutContact";
 
+
 function about() {
   return (
     <div>

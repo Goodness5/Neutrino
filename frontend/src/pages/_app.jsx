@@ -1,10 +1,18 @@
 import "../../styles/globals.css";
-import '@rainbow-me/rainbowkit/styles.css';
+import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { AppProps } from "next/app";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { arbitrum, goerli, mainnet, optimism, polygon } from "wagmi/chains";
+import {
+  arbitrum,
+  goerli,
+  sepolia,
+  mainnet,
+  optimism,
+  polygon,
+} from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
+import PageLayout from "../components/PageLayout.jsx";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [
@@ -12,7 +20,9 @@ const { chains, provider, webSocketProvider } = configureChains(
     polygon,
     optimism,
     arbitrum,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli] : []),
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
+      ? [goerli, sepolia]
+      : []),
   ],
   [publicProvider()]
 );
@@ -34,7 +44,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />
+        <PageLayout>
+          <Component {...pageProps} />
+        </PageLayout>
       </RainbowKitProvider>
     </WagmiConfig>
   );
