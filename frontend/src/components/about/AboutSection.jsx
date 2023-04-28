@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import heroImage from "../images/Rectangle.png";
+import heroImage from "../../images/Rectangle.png";
 
 function AboutSection() {
   return (

@@ -1,10 +1,10 @@
 import React from "react";
-import AboutHero from "../components/AboutHero";
-import AboutSection from "../components/AboutSection";
-import AboutSectionL from "../components/AboutSectionL";
-import AboutDiscover from "../components/AboutDiscover";
-import AboutNumbers from "../components/AboutNumbers";
-import AboutContact from "../components/AboutContact";
+import AboutHero from "../components/about/AboutHero";
+import AboutSection from "../components/about/AboutSection";
+import AboutSectionL from "../components/about/AboutSectionL";
+import AboutDiscover from "../components/about/AboutDiscover";
+import AboutNumbers from "../components/about/AboutNumbers";
+import AboutContact from "../components/about/AboutContact";
 
 function about() {
   return (
