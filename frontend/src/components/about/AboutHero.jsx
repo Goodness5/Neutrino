@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import heroImage from "../images/Background.png";
+import heroImage from "../../images/Background.png";
 // import styles from "../styles/globals.css";
 
 function AboutHero() {
