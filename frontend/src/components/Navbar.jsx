@@ -2,10 +2,11 @@ import React from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 import Image from "next/image";
+import NavIcon from "./NavIcon";
 
 const Navbar = () => {
   return (
-    <header className="flex flex-col md:flex-row mx-[4rem] py-[2rem] md:items-center">
+    <header className="flex flex-col md:flex-row mx-[4rem] py-[2rem] md:pb-0 md:items-center">
       <div className="flex justify-between flex-1">
         <div>
           <Image
@@ -44,11 +45,7 @@ const Navbar = () => {
             <Link href="/">Sell</Link>
           </span>
         </div>
-        <div className="flex flex-col gap-2 p-1 border-2 border-[#2a2a2a] hover:cursor-pointer rounded-md md:hidden">
-          <span className="bg-[#2a2a2a] w-[2rem] h-[0.2rem] rounded-2xl"></span>
-          <span className="bg-[#2a2a2a] w-[2rem] h-[0.2rem] rounded-2xl"></span>
-          <span className="bg-[#2a2a2a] w-[2rem] h-[0.2rem] rounded-2xl"></span>
-        </div>
+        <NavIcon />
       </div>
       <div className="md:flex hidden md:justify-end flex-1">
         <ConnectButton />
@@ -58,5 +55,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
