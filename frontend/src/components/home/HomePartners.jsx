@@ -3,7 +3,7 @@ import React from "react";
 
 const HomePartners = () => {
   return (
-    <div className="flex gap-4 justify-between w-full px-8 items-center opacity-20">
+    <div className="flex flex-col md:flex-row gap-4 justify-between w-full px-8 items-center opacity-20">
       <Image
         src="/home assets/UI DigitalEstate (Copy) (1)/0_-UxHK_uftidJ0oAY.png"
         alt="image"

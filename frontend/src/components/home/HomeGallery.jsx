@@ -16,7 +16,7 @@ const HomeGallery = () => {
         </span>
         <h1 className="font-bold text-3xl">Explore our neighbourhoods</h1>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-col md:flex-row">
         <div className="flex-1">
           <HomeGalleryImage img="Photo1" title="Chicago" text="Illinois" />
         </div>
@@ -31,7 +31,7 @@ const HomeGallery = () => {
           />
         </div>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-col md:flex-row">
         <div className="w-[30%]">
           <HomeGalleryImage img="Photo4" title="Washington, D.C." text="USA" />
         </div>
@@ -43,7 +43,7 @@ const HomeGallery = () => {
           />
         </div>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-col md:flex-row">
         <div className="grow">
           <HomeGalleryImage
             img="Photo7"

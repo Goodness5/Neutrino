@@ -20,7 +20,7 @@ const HomeDescribe = () => {
         </h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
       </div>
-      <div className="flex gap-4">
+      <div className="flex flex-col items-center md:flex-row gap-4">
         <HomeDescribeDetails
           number="01."
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
