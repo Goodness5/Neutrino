@@ -9,11 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/material": "^5.12.2",
     "@rainbow-me/rainbowkit": "^0.12.12",
     "ethers": "^5.7.2",
     "next": "^12.1.6",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-icons": "^4.8.0",
     "wagmi": "^0.12.12"
   },
   "devDependencies": {
