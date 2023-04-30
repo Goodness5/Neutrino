@@ -9,7 +9,7 @@ function AboutContact() {
         <div>
           <div>
             <div>
-              <h1>Need Help ?</h1>
+              <h1 className="upperline">Need Help ?</h1>
             </div>
 
             <div className="dis">
@@ -30,7 +30,10 @@ function AboutContact() {
             </div>
           </div>
 
-          <div>
+          <div className="bottom">
+            <div>
+              <h1 className="upperline">Send Email</h1>
+            </div>
             <form
               className="form"
               action="https://formspree.io/f/mlekabld"
@@ -39,19 +42,33 @@ function AboutContact() {
               <label className="label">
                 Name:
                 <br />
-                <input className="input" type="text" name="name" />
+                <input
+                  className="input"
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                />
               </label>
               <label className="label">
                 Email:
                 <br />
-                <input className="input" type="email" name="email" />
+                <input
+                  className="input"
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                />
               </label>
               <br />
               <br />
               <label className="label">
                 Message:
                 <br />
-                <textarea className="textarea" name="message"></textarea>
+                <textarea
+                  className="textarea"
+                  name="message"
+                  placeholder="Type something"
+                ></textarea>
               </label>
               <br />
               <br />
