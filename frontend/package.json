@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.14",
     "@rainbow-me/rainbowkit": "^0.12.12",
     "ethers": "^5.7.2",
     "mapbox-gl": "^2.14.1",
