@@ -1,11 +1,13 @@
 import React from 'react'
 import Slider from '../components/Buy/carousel'
+import Properties from '../components/Buy/Property'
 
 const buy = ()=> {
   return (
     <div className="">
       
-      <Slider />
+      <Slider /> 
+      <Properties />
       </div>
     
   )
