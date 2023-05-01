@@ -16,58 +16,58 @@ const Properties = () => {
         </span>
         <h1 className="font-bold text-3xl">Explore our neighbourhoods</h1>
       </div>
-      <div className="flex gap-4 flex-col md:flex-row">
-        <div className="flex-1">
+      <div className="flex gap-8 flex-col md:flex-row">
+        <div className="flex-1 shadow-xl bg-blue-50">
           <PropertyDetails img="Photo1"
            title="Chicago"
             text="Illinois" />
-            <button>Buy</button>
+            <button className="p-4 bg-black rounded-lg mb-3 mt-3 text-white">Details</button>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 shadow-xl bg-blue-50">
           <PropertyDetails img="Photo2"
            title="Boston" 
            text="Masachusets" />
-           <button>Buy</button>
+           <button className="p-4 bg-black mb-3 mt-3 rounded-lg text-white">Details</button>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 shadow-xl bg-blue-50">
           <PropertyDetails
             img="Photo3"
             title="San Francisco"
             text="California"
           />
-          <button>Buy</button>
+          <button className="p-4 bg-black mb-3 mt-3 rounded-lg text-white">Details</button>
         </div>
       </div>
-      <div className="flex gap-4 flex-col md:flex-row">
-        <div className="w-[30%]">
+      <div className="flex gap-4 flex-col md:flex-row ">
+        <div className="md:w-[30%] w-full shadow-xl bg-blue-50">
           <PropertyDetails img="Photo4"
            title="Washington, D.C."
             text="USA" />
-          <button>Buy</button>
+          <button className="p-4 bg-black mb-3 mt-3 rounded-lg text-white">Details</button>
         </div>
-        <div className="grow">
+        <div className="grow ml-5 shadow-xl bg-blue-50">
           <PropertyDetails
             img="Photo5"
             title="New York City"
             text="New York"
           />
-          <button>Buy</button>
+          <button className="p-4  bg-black mb-3 mt-3 rounded-lg text-white">Details</button>
         </div>
       </div>
       <div className="flex gap-4 flex-col md:flex-row">
-        <div className="grow">
+        <div className="grow shadow-xl bg-blue-50 ">
           <PropertyDetails
             img="Photo7"
             title="Los Angeles"
             text="California"
           />
-          <button>Buy</button>
+          <button className="p-4 bg-black mb-3 mt-3 rounded-lg text-white">Details</button>
         </div>
-        <div className="w-[30%]">
+        <div className="md:w-[30%] w-full shadow-xl bg-blue-50">
           <PropertyDetails img="Photo8"
            title="Miami"
             text="Florida" />
-          <button>Buy</button>
+          <button className="p-4 bg-black mb-3 mt-3 rounded-lg text-white">Details</button>
         </div>
       </div>
     </div>
