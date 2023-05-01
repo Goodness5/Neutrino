@@ -4,7 +4,7 @@ import HomeDescribeDetails from "./HomeDescribeDetails";
 
 const HomeDescribe = () => {
   return (
-    <div className="px-10">
+    <div className="px-10 text-center md:text-left">
       <div className="my-[3rem]">
         <span>
           <Image
