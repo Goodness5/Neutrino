@@ -5,7 +5,9 @@ function AboutDiscover() {
     <div>
       <div className="containerabout">
         <div className="leftone">
-          <h1 className="discover">Discover RealEstate trends in market</h1>
+          <h1 className="discover upperline">
+            Discover RealEstate trends in market
+          </h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         </div>
       </div>
