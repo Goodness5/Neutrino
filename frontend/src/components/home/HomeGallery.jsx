@@ -14,7 +14,9 @@ const HomeGallery = () => {
             height={3}
           />
         </span>
-        <h1 className="font-bold text-3xl">Explore our neighbourhoods</h1>
+        <h1 className="font-bold text-3xl text-center">
+          Explore our neighbourhoods
+        </h1>
       </div>
       <div className="flex gap-4 flex-col md:flex-row">
         <div className="flex-1">
@@ -32,7 +34,7 @@ const HomeGallery = () => {
         </div>
       </div>
       <div className="flex gap-4 flex-col md:flex-row">
-        <div className="w-[30%]">
+        <div className="md:w-[30%]">
           <HomeGalleryImage img="Photo4" title="Washington, D.C." text="USA" />
         </div>
         <div className="grow">
@@ -51,7 +53,7 @@ const HomeGallery = () => {
             text="California"
           />
         </div>
-        <div className="w-[30%]">
+        <div className="md:w-[30%]">
           <HomeGalleryImage img="Photo8" title="Miami" text="Florida" />
         </div>
       </div>
