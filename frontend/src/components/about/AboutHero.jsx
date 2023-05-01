@@ -1,21 +1,26 @@
 import React from "react";
 import Image from "next/image";
 import heroImage from "../../images/Background.png";
-// import styles from "../styles/globals.css";
+import styling from "../../../styles/Home.module.css";
 
 function AboutHero() {
   return (
     <div>
-      <div className="containerabout">
-        <div className="leftone">
+      <div className={styling.containerabout}>
+        <div className={styling.leftone}>
           <p>Changing</p>
-          <h1 className="aboutintroh1">The face Of Real Estate</h1>
+          <h1 className={styling.aboutintroh1}>The face Of Real Estate</h1>
           <p>One happy home owner at a time.</p>
-          <button className="aboutbtn">Create Account</button>
+          <button className={styling.aboutbtn}>Create Account</button>
         </div>
 
-        <div className="rightone">
-          <Image src={heroImage} alt="hero-image" />
+        <div className={styling.rightone}>
+          <Image
+            className={styling.ki}
+            src={heroImage}
+            alt="hero-image"
+            id="remove"
+          />
         </div>
       </div>
     </div>

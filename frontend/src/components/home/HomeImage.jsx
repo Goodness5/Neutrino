@@ -12,7 +12,7 @@ const HomeImage = () => {
           height={500}
         />
       </div>
-      <div className="text-black px-2 md:px-[10rem] relative z-10 h-full flex flex-col items-center justify-center gap-4">
+      <div className="text-white mt[-5rem] px-2 md:px-[10rem] relative z-10 h-full flex flex-col items-center justify-center gap-4">
         <p>
           «Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad

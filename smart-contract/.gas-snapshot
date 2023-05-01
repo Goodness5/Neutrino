@@ -1,0 +1,8 @@
+EstateTest:testBuyPropinstallment() (gas: 2607339)
+EstateTest:testMintAndDepositAndFraction() (gas: 2499735)
+EstateTest:testRent() (gas: 2666114)
+EstateTest:testpaymentClaim() (gas: 2667158)
+NeuNFTTest:testSafeMint() (gas: 177154)
+testFractionToken:testTransferFrom() (gas: 61100)
+testFractionToken:testburn() (gas: 27324)
+testFractionToken:testtransfer() (gas: 45949)
