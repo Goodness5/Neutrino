@@ -1,4 +1,4 @@
-const neutrinoEstate = {
+export const neutrinoEstate = {
   address: "0x0f1F702B282b0145ACA60fBe113f991d04b718F4",
   abi: [
     {
@@ -227,7 +227,7 @@ const neutrinoEstate = {
   ],
 };
 
-const neuNFT = {
+export const neuNFT = {
   address: "0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696",
   abi: [
     { inputs: [], stateMutability: "nonpayable", type: "constructor" },
@@ -463,7 +463,7 @@ const neuNFT = {
   ],
 };
 
-const fractionalNFT = {
+export const fractionalNFT = {
   address: "0x12C7b96E1F847a8de3A56c27ffab20A5a13DdCf5",
   abi: [
     {
@@ -677,3 +677,4 @@ const fractionalNFT = {
     },
   ],
 };
+
