@@ -142,7 +142,7 @@ contract NeutrinoEstate is IERC721Receiver {
         require(!Registry[propertyIndex].isSold, "property Sold");
         if (
             block.timestamp >=
-            Registry[propertyIndex].InitialdepositTimestamp + 90 days
+            Registry[propertyIndex].InitialdepositTimestamp + 5 minutes
         ) revert("time has passed");
         if (Registry[propertyIndex].isBuyer == msg.sender) {
             FractionedERC20token.transferFrom(
@@ -195,7 +195,7 @@ contract NeutrinoEstate is IERC721Receiver {
         );
         require(
             block.timestamp >=
-                Registry[propIndex].InitialdepositTimestamp + 90 days,
+                Registry[propIndex].InitialdepositTimestamp + 5 minutes,
             "NOT EXPIRED YET"
         );
         require(!Registry[propIndex].isSold, "Property Sold");
@@ -238,7 +238,7 @@ contract NeutrinoEstate is IERC721Receiver {
         );
         if (
             block.timestamp >=
-            Registry[propertyIndex].InitialdepositTimestamp + 90 days
+            Registry[propertyIndex].InitialdepositTimestamp + 5 minutes
         ) {
             uint afterDamagesdeduction = Defaulter[msg.sender][
                 _nftContractAddress
