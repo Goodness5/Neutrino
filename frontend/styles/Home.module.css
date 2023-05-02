@@ -229,6 +229,18 @@
   transform: translateY(-2px);
 }
 
+.exitclaim {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  height: auto;
+}
+
+.shift {
+  margin-left: 10rem;
+}
+
 @media screen and (max-width: 780px) {
 
   .containerabout {

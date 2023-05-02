@@ -3,7 +3,7 @@ import Image from "next/image";
 import heroImage from "../../images/photo.png";
 import line from "../../images/Rectanglehelp.png";
 import line2 from "../../images/Rectanglehelp.png";
-import styling from "../../../styles/Home.module.css";
+import styling from "../../../frontend/styles/Home.module.css";
 
 function AboutContact() {
   return (
