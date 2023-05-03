@@ -2,7 +2,7 @@ import React from 'react';
 
 const Description = () => {
   return (
-    <div>
+    <div className='border-none'>
         <div style={{ position: 'relative' }} className="text-[#504b4bad]" >
         <img className='h-[400px] container' src="/house.jpg" alt="" />
         <div style={{ position: 'absolute', top: 180, left: 880 }} className="max-w-sm rounded left-0 border mt-5 ml-5 bg-white">
@@ -22,11 +22,11 @@ const Description = () => {
       <div className='flex mt-2'>
         <button className='rounded text-xs border p-2'>Sun.Mar.10</button><button className='rounded ml-1 mr-2 border text-xs p-2'>Sun.Mar.10</button><button className='rounded border text-xs p-2'>Sun.Mar.10</button>
      </div>
-       <button className='bg-[#00B4A2]  container mt-5 text-white rounded p-2'>schedule Tour</button>
+       <button className='bg-[#00B4A2] border-none container mt-5 text-white rounded p-2'>schedule Tour</button>
        <p className='text-xs text-center mt-5'>It's free, with no Obligation - cancel anytime</p>
   </div>
   <hr />
-    <p className='text-xs mt-5'> Updated 2days ago   <button className='rounded text-xs ml-[90px] border p-2'>Add to shortlist</button></p>
+    <p className='text-xs mt-5'> Updated 2days ago   <button className='rounded bg-red-600 text-xs ml-[90px] border p-2'>Claim Refund</button></p>
   </div>
  </div>
     <div className='my-10 mx-10'>
@@ -46,7 +46,7 @@ const Description = () => {
      </p>
     </div>
     <p>
-       Neutrino is revolutionizing the real estate industry by providing a more accessible and transparent way to invest in real <br /> estate. Its decentralized model offers numerous advantages over traditional real estate models, including lower <br /> transaction costs, increased liquidity, and greater transparency. With its user-friendly interface and innovative blockchain <br /> technology, Neutrino is poised to become a major player in the real estate industry in the years to come.
+       Prochain is revolutionizing the real estate industry by providing a more accessible and transparent way to invest in real <br /> estate. Its decentralized model offers numerous advantages over traditional real estate models, including lower <br /> transaction costs, increased liquidity, and greater transparency. With its user-friendly interface and innovative blockchain <br /> technology, Neutrino is poised to become a major player in the real estate industry in the years to come.
     </p>
     </div>
     </div>

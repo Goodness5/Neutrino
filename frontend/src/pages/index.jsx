@@ -12,12 +12,12 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Neutrino</title>
+        <title>ProChain</title>
         <meta
           content="Tokenized Real Estate Decentralized "
           name="description"
         />
-        <link href="/favicon.ico" rel="icon" />
+        <link href="/favicon.png" rel="icon" />
       </Head>
 
       <main className={styles.main}>

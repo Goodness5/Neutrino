@@ -56,7 +56,7 @@ const Footer = () => {
             </span>
           </div>
           <div className="flex flex-col items-center md:items-start gap-4 flex-1">
-            <span className="font-bold text-xl">DigitalEstate</span>
+            <span className="font-bold text-xl">ProChain</span>
             <span className="my-[-0.4rem]">
               <Image
                 src="/footer assets/Rectangle.png"
