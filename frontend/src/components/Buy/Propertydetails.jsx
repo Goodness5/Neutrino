@@ -9,7 +9,7 @@ const PropertyDetails = ({ img, price, title, text }) => {
       <div className="absolute inset-0">
         <Image src={`/home assets/${img}.png`} alt="bg img" layout="fill" />
       </div>
-      <p>{price}</p>
+      {/* <p>{price}</p> */}
       <div className="relative z-10 h-full flex flex-col items-start justify-end gap-4">
         <HomeTextBox title={title} text={text} />
       </div>
