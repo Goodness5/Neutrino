@@ -1,3 +1,4 @@
+import DisplayNFT from "../../components/sell/DisplayNFT";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -20,20 +21,16 @@ const Property = () => {
     setAllProperties(data);
   }, [allProperties]);
 
-  console.log(allProperties);
+  //   console.log(allProperties);
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-[90%] md:w-[50%] mx-auto p-8 shadow-lg m-8">
       <h1>Property Details</h1>
-      <div className="p-4 w-[40%] border-2 border-black">
-        <Image
-          src="/homeassets/Photo2.png"
-          alt="image"
-          width={350}
-          height={200}
-          className="rounded-md"
-        />
-        <p>Owner: {allProperties?.[ID]?.[0]}</p>
-        <p>Contract Address: {allProperties?.[ID]?.[1]}</p>
+      <div className="m-4 border-2 border-black flex flex-col items-center gap-2">
+        <DisplayNFT id={allProperties?.[ID]?.[3]} width={350} height={250} />
+        <p className="text-center">Owner: {allProperties?.[ID]?.[0]}</p>
+        <p className="text-center">
+          Contract Address: {allProperties?.[ID]?.[1]}
+        </p>
         <p>
           Property Status:{" "}
           {allProperties?.[ID]?.[2] == 0 ? <>For Sale</> : <>For Rent</>}

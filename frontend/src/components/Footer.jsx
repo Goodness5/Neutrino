@@ -10,7 +10,13 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row gap-8 items-center md:items-start justify-between py-[1rem] mx-[4rem]">
           <div className="flex flex-col items-center md:items-start gap-4 flex-1">
             <span>
-              <Image src="/prochain.png" alt="logo" width={150} height={40} />
+              <Image
+                src="/prochain.png"
+                alt="logo"
+                width={150}
+                height={40}
+                className="animate-pulse"
+              />
             </span>
             <span className="text-center md:text-left">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit
