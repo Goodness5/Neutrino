@@ -7,7 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import main from './upload/upload.mjs';
-import { useContractWrite, usePrepareContractWrite } from 'wagmi'
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction} from 'wagmi'
+import NFTAbi from '../utils/NftAbi.json';
 
 const MintForm = (props) => {
     const [open, setOpen] = useState(false);
@@ -43,8 +44,7 @@ const MintForm = (props) => {
       setPropertyURI(URI.ipnft);
       console.log(URI.ipnft);
       if(URI.ipnft){
-        setIsloading(false);
-        props.proceed(true);
+        safeMint()
       }     
       };
 
@@ -57,13 +57,24 @@ const MintForm = (props) => {
       }
   
       //Wagmi Interactions 
-      // const { config : mintConfig } = usePrepareContractWrite({
-      //   address: '0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696',
-      //   abi: wagmigotchiABI,
-      //   functionName: 'feed',
-      // })
-      // const { data, isLoading, isSuccess, write } = useContractWrite(config)
+      const { config : mintConfig } = usePrepareContractWrite({
+        address: '0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696',
+        abi: NFTAbi,
+        functionName: 'safeMint',
+        args:[PropertyURI, "0x1f6feEEd3Fb9696A5FB3a6aB78B5B3c7E1eb2f5f"]
+      })
+      const { data : mintWaitData, isLoading: isloadingMint, isSuccess, write: safeMint } = useContractWrite(mintConfig);
 
+      const {data: relWaitData, isLoading: releaseDataWaitLoading, isSuccess : releaseDataSuccess} = useWaitForTransaction({
+        hash: mintWaitData?.hash,
+        onSuccess(data) {
+          setIsloading(false);
+          props.proceed(true);
+          console.log(Number(data.logs[0].topics[3]));
+        },
+        onError(error) {
+        },
+      }) 
 
 
 
