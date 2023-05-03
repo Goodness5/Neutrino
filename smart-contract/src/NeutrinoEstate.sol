@@ -15,7 +15,6 @@ contract NeutrinoEstate is IERC721Receiver {
         rent
     }
 
-
     uint totalRentRevenue;
     struct Rent{
         uint amount;
@@ -107,7 +106,7 @@ contract NeutrinoEstate is IERC721Receiver {
             _nftContractAddress,
             _nftId,
             msg.sender,
-            1000,
+            1000 ether,
             _propertyname,
             "PROP",
             address(this)
@@ -141,7 +140,7 @@ contract NeutrinoEstate is IERC721Receiver {
         );
         
         require(!_property.isSold, "property Sold");
-        require(_property.hasFractionalized, "No buyoff");
+        require(_property.hasFractionalized, "Not fractionalized");
 
         uint totalPaid =_property.amountPaid;
         uint totalPrice = _property.price;
@@ -154,7 +153,7 @@ contract NeutrinoEstate is IERC721Receiver {
         } else {
             require(msg.value + totalPaid == totalPrice, "Invalid payment amount");
         }
-
+        if (_property.price != msg.value) {
         uint token_transfer_amount = 1000 / _numPayments;
             FractionedERC20token.transferFrom(
                 _property.owner,
@@ -167,10 +166,20 @@ contract NeutrinoEstate is IERC721Receiver {
 
             }
             _property.amountPaid += msg.value;
-
-        _property.times_paid++;
-        if (_property.times_paid == _property.noOfPayment && _property.price == _property.amountPaid) {
+            _property.times_paid++; 
+            if(_property.price == _property.amountPaid ){
+                IERC721(_nftContractAddress).safeTransferFrom(_property.owner, msg.sender, _nftID);
+                _property.isSold = true;
+            }
+        }
+        if (_property.price == msg.value) {
+           uint transfer_amount = FractionedERC20token.balanceOf(_property.owner);
             IERC721(_nftContractAddress).safeTransferFrom(_property.owner, msg.sender, _nftID);
+            FractionedERC20token.transferFrom(
+                _property.owner,
+                msg.sender,
+                transfer_amount
+            );
             _property.isSold = true;
         }
     }
@@ -407,6 +416,11 @@ function RentProperty(uint _nftID, address _nftContractAddress) public payable{
         return Registry;
     }
 
+    function returnNFTRegIndex (address _nftContractAddress,  uint _nftID) public view returns (PropertyInfo memory){
+        uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
+        PropertyInfo memory rentedproperty = Registry[propertyIndex];
+        return rentedproperty;
+    }
 function onERC721Received(
         address,
         address from,
