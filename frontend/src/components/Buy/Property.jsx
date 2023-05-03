@@ -1,14 +1,46 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useContractRead } from 'wagmi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PropertyDetails from "./Propertydetails";
 import { neutrinoEstate, neuNFT } from "../../utils/contractInfo.js";
 
+
+function useTokenUris(propertiesData, neuNFT) {
+  const [tokenUris, setTokenUris] = useState([]);
+
+  useEffect(() => {
+    async function generateTokenUris() {
+      if (propertiesData) {
+        const promises = propertiesData.map(async (property) => {
+          const tokenId = property.nftId;
+          const { data } = await useContractRead({
+            address: neuNFT.address,
+            abi: neuNFT.abi,
+            functionName: "tokenURI",
+            functionParams: [tokenId],
+            onError: (error) => {
+              console.error(error);
+              toast.error("Error loading image uri!");
+            },
+          });
+          return data;
+        });
+        const uris = await Promise.all(promises);
+        setTokenUris(uris);
+      }
+    }
+    generateTokenUris();
+  }, [propertiesData, neuNFT]);
+
+  return tokenUris;
+}
+
 const Properties = () => {
   const { data: propertiesData, isError, isLoading } = useContractRead({
-    address: neutrinoEstate.address,
+    // address: neutrinoEstate.address,
+    address: '0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f',
     abi: neutrinoEstate.abi,
     functionName: 'getAllProperties',
     onError: (error) => {
@@ -23,37 +55,6 @@ const Properties = () => {
     }
   });
 
-  const getPropertyImageUri = async (tokenId) => {
-    const { data, isError, isLoading } = await useContractRead({
-      address: neuNFT.address,
-      abi: neuNFT.abi,
-      functionName: 'tokenURI',
-      functionParams: [tokenId],
-      onError: (error) => {
-        console.error(error);
-        toast.error("Error loading image uri!");
-      },
-      onLoading: () => {
-        toast.info("Loading properties...");
-      },
-      onSuccess: () => {
-        toast.success("Image uri loaded successfully!");
-      }
-    });
-
-    if (!isLoading && !isError) {
-      return data;
-    }
-  };
-
-  if (isError) {
-    return (
-      <div>
-        <ToastContainer />
-        <h1>There was an error loading properties. Please try again later.</h1>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -71,25 +72,25 @@ const Properties = () => {
           <h1 className="font-bold text-3xl">Explore our neighbourhoods</h1>
         </div>
         <div className="flex gap-4 flex-col md:flex-row">
-          {propertiesData && propertiesData.map(async (property, index) => {
-            const tokenId = property.nftId;
-            const imageUri = await getPropertyImageUri(tokenId);
+          {propertiesData && (
+            <React.Fragment>
+              {imageUris.map((imageUri, index) => {
+                const property = propertiesData[index];
 
-            return (
-              <div key={index} className="flex-1">
-                <PropertyDetails
-                  img={imageUri}
-                  title={property.title}
-                  text={property.text}
-                  price={property.price}
-                  propertyStatus={property.propertyStatus}
-                  isRented={property.isRented}
-                  isSold={property.isSold}
-                />
-                <button className="p-4 bg-black text-white">Buy</button>
-              </div>
-            );
-          })}
+                return (
+                  <div key={index} className="flex-1">
+                    <PropertyDetails
+                      img={imageUri}
+                      title={property.title}
+                      text={property.text}
+                      price={property.price}
+                    />
+                    <button className="p-4 bg-black text-white">Buy</button>
+                  </div>
+                );
+              })}
+            </React.Fragment>
+          )}
         </div>
       </div>
     </div>
@@ -98,18 +99,3 @@ const Properties = () => {
 
 export default Properties;
 
-
-
-
-
-
-
-
-
-  // { img: "Photo1", title: "Chicago", text: "Illinois" },
-    // { img: "Photo2", title: "Boston", text: "Massachusetts" },
-    // { img: "Photo3", title: "San Francisco", text: "California" },
-    // { img: "Photo4", title: "Washington, D.C.", text: "USA" },
-    // { img: "Photo5", title: "New York City", text: "New York" },
-    // { img: "Photo7", title: "Los Angeles", text: "California" },
-    // { img: "Photo8", title: "Miami", text: "Florida" },

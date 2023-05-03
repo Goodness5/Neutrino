@@ -34,8 +34,10 @@ contract NeutrinoEstate is IERC721Receiver {
         address fractionContractAddress;
         uint price;
         uint256 supply;
+        uint noOfPayment;
         bool hasFractionalized;
         address isBuyer;
+        uint16 times_paid;
         uint amountPaid;
         bool isSold;
         bool isRented;
@@ -60,7 +62,7 @@ contract NeutrinoEstate is IERC721Receiver {
         owner = _owner;
     }
 
-    function depositPropertyNft(address _nftContractAddress, uint256 _nftId,  uint _status, uint _price) external {
+    function depositPropertyNft(address _nftContractAddress, uint256 _nftId, uint _noOfPayment,  uint _status, uint _price) external {
         require(_price > 0.0000002 ether, 'not enough');
         ERC721URIStorage NFT = ERC721URIStorage(_nftContractAddress);
         //approveFunction from script required
@@ -74,6 +76,7 @@ contract NeutrinoEstate is IERC721Receiver {
         if (_status == 0) {
             newProperty.propertyStatus = Status.sale;
             ForSaleNFTIDs.push(_nftId);
+            newProperty.noOfPayment = _noOfPayment;
         }
 
         if(_status == 1){
@@ -92,7 +95,7 @@ contract NeutrinoEstate is IERC721Receiver {
     function createFraction(
         address _nftContractAddress,
         uint256 _nftId,
-        uint256 _supply
+        string memory _propertyname
     ) external returns (address) {
         uint256 PropertyIndex = PropertyNftIndex[_nftContractAddress][_nftId];
         require(
@@ -104,9 +107,9 @@ contract NeutrinoEstate is IERC721Receiver {
             _nftContractAddress,
             _nftId,
             msg.sender,
-            _supply,
-            "MyToken",
-            "myt",
+            1000,
+            _propertyname,
+            "PROP",
             address(this)
         );
         Registry[PropertyIndex].fractionContractAddress = address(
@@ -116,51 +119,59 @@ contract NeutrinoEstate is IERC721Receiver {
         //An approve function needed from script after function call.
     }
 
-    function buyPropertyInstallMent(
-        uint _amount,
+   function buyPropertyInstallMent(
         uint _nftID,
         address _nftContractAddress
     ) external payable {
-        //call approval to easen the removal of token in case of default.
-        uint amountToPay = 0.0000002 ether * _amount;
         uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
+        PropertyInfo storage _property = Registry[propertyIndex];
+        //call approval to easen the removal of token in case of default.
+        uint _numPayments = _property.noOfPayment;
         FractionToken FractionedERC20token = FractionToken(
             Registry[propertyIndex].fractionContractAddress
         );
         require(
-            Registry[propertyIndex].isBuyer == address(0x0) ||
-                Registry[propertyIndex].isBuyer == msg.sender,
+            _property.isBuyer == address(0x0) ||
+                _property.isBuyer == msg.sender,
             "Not available"
         );
         require(
-            Registry[propertyIndex].propertyStatus == Status.sale,
+            _property.propertyStatus == Status.sale,
             "for sale only"
         );
-        require(msg.value == amountToPay, "not enough eth");
-        require(_amount <= FractionedERC20token.totalSupply());
-        require(Registry[propertyIndex].hasFractionalized, "No buyoff");
-        require(!Registry[propertyIndex].isSold, "property Sold");
-        if (
-            block.timestamp >=
-            Registry[propertyIndex].InitialdepositTimestamp + 90 days
-        ) revert("time has passed");
-        if (Registry[propertyIndex].isBuyer == msg.sender) {
-            FractionedERC20token.transferFrom(
-                Registry[propertyIndex].owner,
-                msg.sender,
-                _amount
-            );
-            Registry[propertyIndex].amountPaid += amountToPay;
+        
+        require(!_property.isSold, "property Sold");
+        require(_property.hasFractionalized, "No buyoff");
+
+        uint totalPaid =_property.amountPaid;
+        uint totalPrice = _property.price;
+
+        // Calculate the payment amount based on the number of payments
+       
+        if (_property.times_paid < _property.noOfPayment) {
+            require(msg.value + totalPaid <= totalPrice, "Total amount paid exceeds price");
+            
+        } else {
+            require(msg.value + totalPaid == totalPrice, "Invalid payment amount");
         }
-        if (Registry[propertyIndex].isBuyer == address(0x0)) {
+
+        uint token_transfer_amount = 1000 / _numPayments;
             FractionedERC20token.transferFrom(
-                Registry[propertyIndex].owner,
+                _property.owner,
                 msg.sender,
-                _amount
+                token_transfer_amount
             );
-            Registry[propertyIndex].isBuyer = msg.sender;
-            Registry[propertyIndex].amountPaid += amountToPay;
-            Registry[propertyIndex].InitialdepositTimestamp = block.timestamp;
+            if(_property.isBuyer == address(0)){
+
+            _property.isBuyer = msg.sender;
+
+            }
+            _property.amountPaid += msg.value;
+
+        _property.times_paid++;
+        if (_property.times_paid == _property.noOfPayment && _property.price == _property.amountPaid) {
+            IERC721(_nftContractAddress).safeTransferFrom(_property.owner, msg.sender, _nftID);
+            _property.isSold = true;
         }
     }
 
