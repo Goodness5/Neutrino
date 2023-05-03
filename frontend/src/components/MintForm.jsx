@@ -33,6 +33,7 @@ const MintForm = (props) => {
     const [Ecologystate, setEcologystate] = useState('');
     const [Noiselevel, setNoiselevel] = useState('');
     const [Infrastructure, setInfrastructure] = useState('');
+    const [mintedNFTid, setMintedNFTid] = useState('');
 
     const [PropertyURI, setPropertyURI] = useState('');
     const [isLoading, setIsloading] = useState(false);
@@ -40,11 +41,12 @@ const MintForm = (props) => {
   
     const handleProceed = async () => {
       setIsloading(true);
-      const URI = await main(file, name, description, location, Plot, Room, AboutBuilding, price, propertyType, County, yearBuilt, BathroomFeatures, HOAname, HOAfee, feeFrequency, parkingSpace, NearbyLocation, CrimeLevel, Ecologystate, Noiselevel, Infrastructure);
-      setPropertyURI(URI.ipnft);
+      const URI = await main(file, name, description, location, Plot, Room, AboutBuilding, price, propertyType, County, yearBuilt, BathroomFeatures, HOAname, HOAfee, feeFrequency, parkingSpace, NearbyLocation, CrimeLevel, Ecologystate, Noiselevel, Infrastructure);   
       console.log(URI.ipnft);
       if(URI.ipnft){
-        safeMint()
+        setPropertyURI(URI.ipnft);
+        console.log(PropertyURI)
+        // safeMint()
       }     
       };
 
@@ -56,7 +58,7 @@ const MintForm = (props) => {
        setFile(e.target.files[0]);
       }
   
-      //Wagmi Interactions 
+      //Wagmi Interactions for Minting
       const { config : mintConfig } = usePrepareContractWrite({
         address: '0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696',
         abi: NFTAbi,
@@ -70,12 +72,12 @@ const MintForm = (props) => {
         onSuccess(data) {
           setIsloading(false);
           props.proceed(true);
-          console.log(Number(data.logs[0].topics[3]));
+          setMintedNFTid(Number(data.logs[0].topics[3]));
+          console.log(mintedNFTid);
         },
         onError(error) {
         },
       }) 
-
 
 
     return (

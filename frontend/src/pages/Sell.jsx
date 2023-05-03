@@ -59,6 +59,10 @@ const handleMintFormProceed = (prop) =>{
   setdisabledDepositNFTStatus(true);
 }
 
+  //wagmi interaction with deposit 
+  
+
+
   return (
     <div>
       <h1>SELL PAGE</h1>
