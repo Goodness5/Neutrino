@@ -1,65 +1,62 @@
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { useContractRead } from 'wagmi';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import PropertyDetails from "./Propertydetails";
-import { neutrinoEstate, neuNFT } from "../../utils/contractInfo.js";
-import usePropertyImageUris from "./imageUri";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useContractRead } from "wagmi";
+import { neuNFT, neutrinoEstate } from "../../utils/contractInfo";
+import DisplayNFT from "../sell/DisplayNFT";
 
-const Properties = () => {
-  const { data: propertiesData, isError, isLoading } = useContractRead({
-    address: '0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f',
+const HomeGallery = () => {
+  const [allProperties, setAllProperties] = useState();
+
+  const { data, isLoading, isError } = useContractRead({
+    address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
     abi: neutrinoEstate.abi,
-    functionName: 'getAllProperties',
-    onError: (error) => {
-      console.error(error);
-      toast.error("Error loading properties!");
-    },
-    onLoading: () => {
-      toast.info("Loading properties...");
-    },
-    onSuccess: () => {
-      toast.success("Properties loaded successfully!");
-    }
+    functionName: "getAllProperties",
   });
 
-  const tokenUris = usePropertyImageUris(propertiesData);
-  console.log("properties", propertiesData)
-  console.log("uris", tokenUris)
+
+  useEffect(() => {
+    setAllProperties(data);
+  }, [allProperties]);
+
+  console.log(allProperties);
+
   return (
-    <div>
-      <ToastContainer />
-      <div className="flex flex-col gap-8 px-8 w-full my-[2rem]">
-        <div className="flex flex-col items-center justify-center">
-          <span>
-            <Image
-              src="/footer assets/rec.png"
-              alt="line"
-              width={100}
-              height={3}
-            />
-          </span>
-          <h1 className="font-bold text-3xl">Explore our neighbourhoods</h1>
-        </div>
-        <div className="flex gap-4 flex-col md:flex-row">
-  {propertiesData && tokenUris && propertiesData.map((property, index) => (
-    <React.Fragment key={index}>
-      <div className="flex-1">
-        <PropertyDetails
-          // img={tokenUris[index]}
-          title={property.title}
-          text={property.text}
-          price={property.price}
-        />
-        <button className="p-4 bg-black text-white">Buy</button>
+    <div className="flex flex-col gap-8 px-8 w-full my-[2rem]">
+      <div className="flex flex-col items-center justify-center">
+        <span>
+          <Image
+            src="/homeassets/photo.png"
+            alt="line"
+            width={100}
+            height={3}
+          />
+        </span>
+        <h1 className="font-bold text-3xl text-center">
+          Explore our neighbourhoods
+        </h1>
       </div>
-    </React.Fragment>
-  ))}
-</div>
+      <div className="grid md:grid-cols-3 gap-8">
+        {allProperties?.map((item) => {
+          return (
+            <Link href={`/description/${item?.[3]}`} key={item[3]}>
+              <div className="relative h-[15rem] w-[100%] hover:cursor-pointer">
+                <DisplayNFT id={item?.[3]} />
+                <div className="relative z-10 h-full flex flex-col items-start justify-end gap-4">
+                  <span className="p-[1rem] bg-white w-[50%]">
+                    <h1 className="text-xl font-bold">
+                      <span>Price: </span>
+                      {String(item?.[6]) / 10 ** 18} ETH
+                    </h1>
+                  </span>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
 };
 
-export default Properties;
+export default HomeGallery;

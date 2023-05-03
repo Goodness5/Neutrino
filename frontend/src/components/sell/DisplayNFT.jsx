@@ -33,6 +33,7 @@ const DisplayNFT = ({ id }) => {
   console.log(tokenURI);
   console.log(metadata?.image);
   console.log(imageURL);
+  // console.log("metadatas::", metadata)
 
   return (
     <div className="absolute inset-0">
