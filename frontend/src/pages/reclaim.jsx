@@ -12,14 +12,15 @@ import styling from "../../styles/Home.module.css";
 function reclaim() {
   const { address } = useAccount();
   const CONTRACT = "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f";
-  const [nftContractAdress, setNftContractAddress] = useState("");
+  const nftAddr = "0x34eB21Ba2F1CfB9Fb738e8AFA09AB1357fb1a6D1";
+  // const [nftContractAdress, setNftContractAddress] = useState("");
   const [nftId, setNftId] = useState(null);
 
   const { config: config1 } = usePrepareContractWrite({
     address: CONTRACT,
     abi: estateAbi,
     functionName: "reclaimAmountPaid",
-    args: [nftContractAdress, nftId],
+    args: [nftAddr, nftId],
   });
 
   const {
@@ -60,13 +61,13 @@ function reclaim() {
       <div className={styling.exitclaim}>
         <form className={styling.form} onSubmit={handleSubmit2}>
           <h1>Enter property Details to reclaim.</h1>
-          <label className={styling.label}>Property Contract Address:</label>
+          {/* <label className={styling.label}>Property Contract Address:</label>
           <input
             className="form-input"
             type="text"
             placeholder="Enter property contract address"
             onChange={(e) => setNftContractAddress(e.target.value)}
-          />
+          /> */}
 
           <br></br>
           <hr></hr>
@@ -80,7 +81,7 @@ function reclaim() {
             onChange={(e) => setNftId(e.target.value)}
           />
 
-          <button className={styling.button} type="submit">
+          <button className={styling.buttonC} type="submit">
             {reclaimIsLoading || createWaitIsLoading
               ? "Reclaiming Payment..."
               : "Reclaim Payment"}
