@@ -1,32 +1,67 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const NavIcon = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
-  const handleClick = () => {
-    if (!open) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  };
-
-  return (
-    <div>
+  if (open) {
+    return (
       <div
-        onClick={() => setOpen(false) && `className={}`}
-        className="flex flex-col gap-2 p-1 border-2 border-[#2a2a2a] hover:cursor-pointer rounded-md md:hidden"
+        onClick={() => setOpen(!open)}
+        className="flex flex-col gap-2 p-1 hover:cursor-pointer rounded-md md:hidden"
       >
-        <span className="bg-[#2a2a2a] w-[2rem] h-[0.2rem] rounded-2xl"></span>
-        <span className="bg-[#2a2a2a] w-[2rem] h-[0.2rem] rounded-2xl"></span>
-        <span className="bg-[#2a2a2a] w-[2rem] h-[0.2rem] rounded-2xl"></span>
+        <Image
+          src="/navbarassets/control.png"
+          alt="toggle button"
+          width={32}
+          height={32}
+        />
       </div>
+    );
+  } else {
+    return (
+      <div
+        onClick={() => setOpen(!open)}
+        className="flex flex-col gap-2 p-1 hover:cursor-pointer rounded-md md:hidden"
+      >
+        <Image
+          src="/navbarassets/cancel.png"
+          alt="cancel button"
+          width={32}
+          height={32}
+          className="relative"
+        />
 
-      <div className="hover:cursor-pointer rounded-md md:hidden">
-        <span className="bg-[#2a2a2a] w-[2rem] h-[0.2rem] rounded-2xl"></span>
+        <div className="flex flex-col absolute right-0 top-20 gap-4 bg-[rgba(0,0,0,0.8)] p-8 rounded-xl z-20 font-sans">
+          <span className="bg-gray-200 hover:bg-gray-300 rounded-lg p-2 flex gap-2 items-center">
+            <Image
+              src="/footerassets/rec.png"
+              alt="icon"
+              width={5}
+              height={2}
+            />
+            <Link href="/buy">
+              <span>Explore Properties</span>
+            </Link>
+          </span>
+          <span className="bg-gray-200 hover:bg-gray-300 rounded-lg p-2 flex gap-2 items-center">
+            <Image
+              src="/footerassets/rec.png"
+              alt="icon"
+              width={5}
+              height={2}
+            />
+            <Link href="/Sell">
+              <span>Sell</span>
+            </Link>
+          </span>
+          <ConnectButton />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default NavIcon;

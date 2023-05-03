@@ -25,7 +25,11 @@ const Navbar = () => {
               width={5}
               height={2}
             />
-            <Link href="/buy">Explore Properties</Link>
+            <Link href="/buy">
+              <span className="text-xl font-sans cursor-pointer">
+                Explore Properties
+              </span>
+            </Link>
           </span>
           <span className="hover:bg-gray-300 p-2 flex gap-4 items-center md:flex-col md:gap-0 md:items-start ">
             <Image
@@ -34,7 +38,9 @@ const Navbar = () => {
               width={5}
               height={2}
             />
-            <Link href="/Sell">Sell</Link>
+            <Link href="/Sell">
+              <span className="text-xl font-sans cursor-pointer">Sell</span>
+            </Link>
           </span>
         </div>
         <NavIcon />

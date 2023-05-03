@@ -38,14 +38,13 @@ const Sell = () => {
     setAllProperties(data);
   }, [allProperties]);
 
-  const [nftAddress, setNftAddress] = useState("");
   const [nftId, setNftId] = useState("");
 
   const { config } = usePrepareContractWrite({
     address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
     abi: neutrinoEstate.abi,
     functionName: "RetrievePropertyOnDefault",
-    args: [nftAddress, nftId],
+    args: ["0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696", nftId],
   });
   const {
     data: writeData,
@@ -316,14 +315,7 @@ const Sell = () => {
             className="flex flex-col items-center p-4 gap-4"
           >
             <h2>Retrieve Property</h2>
-            <label htmlFor="nft">NFT Contract Address: </label>
-            <input
-              className="p-4 rounded-md border-2"
-              type="text"
-              value={nftAddress}
-              id="nft"
-              onChange={(e) => setNftAddress(e.target.value)}
-            />
+
             <label htmlFor="id">NFT ID: </label>
             <input
               className="p-4 rounded-md border-2"
@@ -334,8 +326,19 @@ const Sell = () => {
             />
             <button
               type="submit"
-              disabled={!nftAddress || !nftId}
+              disabled={!nftId}
               className="p-4 rounded-md border-2 w-[55%]"
+              style={
+                !nftId
+                  ? { backgroundColor: "grey" }
+                  : {
+                      backgroundColor: "#00b4a2",
+                      color: "white",
+                      border: "none",
+                      cursor: "pointer",
+                      boxShadow: "2px 2px 5px rgba(0,0,0,0.3)",
+                    }
+              }
             >
               {loadData || waitLoading ? "Retrieving" : "Retrieve"}
             </button>

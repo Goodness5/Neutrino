@@ -67,10 +67,14 @@ const Footer = () => {
               />
             </span>
             <span>
-              <Link href="/">About</Link>
+              <Link href="/">
+                <span className="cursor-pointer">About</span>
+              </Link>
             </span>
             <span>
-              <Link href="/">Contact Us</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Contact Us</span>
+              </Link>
             </span>
           </div>
           <div className="flex flex-col items-center md:items-start gap-4 flex-1">
@@ -84,16 +88,24 @@ const Footer = () => {
               />
             </span>
             <span>
-              <Link href="/">Apartments</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Apartments</span>
+              </Link>
             </span>
             <span>
-              <Link href="/">Houses</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Houses</span>
+              </Link>
             </span>
             <span>
-              <Link href="/">Offices</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Offices</span>
+              </Link>
             </span>
             <span>
-              <Link href="/">Land</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Land</span>
+              </Link>
             </span>
           </div>
           <div className="flex flex-col items-center md:items-start gap-4 flex-1">
@@ -107,16 +119,24 @@ const Footer = () => {
               />
             </span>
             <span>
-              <Link href="/">Apartments</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Apartments</span>
+              </Link>
             </span>
             <span>
-              <Link href="/">Houses</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Houses</span>
+              </Link>
             </span>
             <span>
-              <Link href="/">Offices</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Offices</span>
+              </Link>
             </span>
             <span>
-              <Link href="/">Land</Link>
+              <Link href="/">
+                <span className="cursor-pointer">Land</span>
+              </Link>
             </span>
           </div>
           <div className="flex flex-col items-center md:items-start gap-4 flex-1">
@@ -130,10 +150,14 @@ const Footer = () => {
               />
             </span>
             <span>
-              <Link href="/">For Home Sellers</Link>
+              <Link href="/">
+                <span className="cursor-pointer">For Home Sellers</span>
+              </Link>
             </span>
             <span>
-              <Link href="/">For Real Estate Agents</Link>
+              <Link href="/">
+                <span className="cursor-pointer">For Real Estate Agents</span>
+              </Link>
             </span>
           </div>
         </div>
@@ -144,7 +168,9 @@ const Footer = () => {
         <p className="text-center md:text-left">
           © 2018 Open Listings Co. Licensed in CA, WA, TX & IL. TREC: Info
         </p>
-        <Link href="/">Terms of use · Privacy policy</Link>
+        <Link href="/">
+          <span className="cursor-pointer">Terms of use · Privacy policy</span>
+        </Link>
       </div>
     </footer>
   );
