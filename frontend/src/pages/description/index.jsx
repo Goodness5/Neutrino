@@ -1,15 +1,18 @@
 import React from 'react';
+import Property from '../home/[id]';
+import DisplayNFT from "../sell/DisplayNFT";
 
 const Description = () => {
+  
   return (
     <div className='border-none'>
         <div style={{ position: 'relative' }} className="text-[#504b4bad]" >
-        <img className='h-[400px] container' src="/house.jpg" alt="" />
+        <DisplayNFT className='h-[400px] container' id={item?.[3]} />
         <div style={{ position: 'absolute', top: 180, left: 880 }} className="max-w-sm rounded left-0 border mt-5 ml-5 bg-white">
     <div className="px-6  py-4">
         <span className='text-xs'>Total price</span>
       <div className='flex mb-5'>
-    <div className="font-bold text-xl text-black mb-2">1,700,0000</div>
+    <div className="font-bold text-xl text-black mb-2">Property.</div>
     <button className='bg-[#00B4A2] ml-20 text-white rounded p-2'>Send Request</button>
     </div>
     <hr />
