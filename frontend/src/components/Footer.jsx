@@ -11,10 +11,10 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start md:items-start gap-4 flex-1">
             <span>
               <Image
-                src="/footer assets/Group 20.png"
+                src="/prochain.png"
                 alt="logo"
                 width={150}
-                height={30}
+                height={40}
               />
             </span>
             <span className="text-center md:text-left">

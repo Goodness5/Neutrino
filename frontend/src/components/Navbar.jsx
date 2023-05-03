@@ -10,10 +10,10 @@ const Navbar = () => {
       <div className="flex justify-between flex-1">
         <div>
           <Image
-            src="/footer assets/Group 20.png"
+            src="/prochain.png"
             alt="logo"
             width={150}
-            height={30}
+            height={40}
           />
         </div>
         <div className="md:flex gap-4 font-bold items-end hidden mb-4 md:flex-row md:items-center md:mb-0">
