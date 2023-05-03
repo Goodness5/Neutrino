@@ -15,7 +15,6 @@ contract NeutrinoEstate is IERC721Receiver {
         rent
     }
 
-
     uint totalRentRevenue;
     struct Rent{
         uint amount;
@@ -396,6 +395,11 @@ function RentProperty(uint _nftID, address _nftContractAddress) public payable{
         return Registry;
     }
 
+    function returnNFTRegIndex (address _nftContractAddress,  uint _nftID) public view returns (PropertyInfo memory){
+        uint propertyIndex = PropertyNftIndex[_nftContractAddress][_nftID];
+        PropertyInfo memory rentedproperty = Registry[propertyIndex];
+        return rentedproperty;
+    }
 function onERC721Received(
         address,
         address from,

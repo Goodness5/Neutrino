@@ -7,6 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Mint from '../components/MintForm';
 
+
 const Sell = () => {
   const [mintStatus, setMintStatus] = useState(false);
   const [DepositNftStatus, setDepositNFTStatus] = useState(false);
@@ -72,46 +73,46 @@ const handleMintFormProceed = (prop) =>{
                     <div className='mt-[130px] p-3 w-10 h-10 rounded-full text-center'>{ApproveStatus ? <BsCheck2 color='green' size={30}/> : <CiNoWaitingSign color='red' size={30}/>} </div>
                 </div>
                 <div className='w-[50%] lg:h-[100%] xsm:w-[100%]'>
-                    <div className='my-[18px] lg:w-[70%] xsm:w-[100%] lg:h-[150px] xsm:h-[300px] rounded-lg border flex py-4'>
+                    <div className='my-[18px] lg:w-[70%] xsm:w-[100%] lg:h-[150px] xsm:h-[300px] rounded-lg border flex py-4 '>
                       <div className='mx-auto flex my-auto w-[80%]'>
-                      <div className='w-[35px] mr-8 my-auto xsm:hidden'><FaPencilAlt size={30}/></div>
+                      <div className='w-[35px] mr-8 my-auto xsm:hidden lg:block'><FaPencilAlt size={30}/></div>
                       <div className='w-[100%]'>
                       <h1 className=' text-2xl font-bold'>Mint The Property NFT</h1>
                       <p className=' text-base'>Mint a property representation</p>
-                      <button className='w-[100%] h-[50px] border rounded-lg my-2' disabled={mintStatus} onClick={handleMintFormOpen} style={mintStatus ? {background: 'grey'} : {background: '#71DF82'}} >Mint</button>
+                      <button className='w-[100%] h-[50px] border-none rounded-lg my-2' disabled={mintStatus} onClick={handleMintFormOpen} style={mintStatus ? {background: 'grey'} : {background: '#71DF82'}} >Mint</button>
                       </div>
                       </div>
 
                     </div>
-                    <div className='my-[18px] lg:w-[70%] xsm:w-[100%] lg:h-[150px] xsm:h-[300px] rounded-lg border flex py-4'>
-                      <div className='mx-auto flex my-auto w-[80%]'>
-                      <div className='w-[35px] mr-8 my-auto xsm:hidden'><FaPencilAlt size={30}/></div>
+                    <div className='my-[18px] lg:w-[70%] xsm:w-[100%] lg:h-[150px] xsm:h-[300px] rounded-lg flex py-4'>
+                      <div className='mx-auto flex my-auto w-[80%] border'>
+                      <div className='w-[35px] mr-8 my-auto xsm:hidden lg:block'><FaPencilAlt size={30}/></div>
                       <div className='w-[100%]'>
                       <h1 className=' text-2xl font-bold'>Deposit NFT</h1>
                       <p className=' text-base'>Deposit a property representation</p>
-                      <button className='w-[100%] h-[50px] border bg-green-400 rounded-lg my-2' disabled={!disabledDepositNftStatus} onClick={handleDepositNftStatus} style={disabledDepositNftStatus ? {background: '#71DF82'} : {background: 'grey'}}>Deposit</button>
+                      <button className='w-[100%] h-[50px] border-none bg-green-400 rounded-lg my-2' disabled={!disabledDepositNftStatus} onClick={handleDepositNftStatus} style={disabledDepositNftStatus ? {background: '#71DF82'} : {background: 'grey'}}>Deposit</button>
                       </div>
                       </div>
 
                     </div>
                     <div className='my-[18px] lg:w-[70%] xsm:w-[100%] xsm:h-[300px] lg:h-[150px] rounded-lg border flex py-4'>
                       <div className='mx-auto flex my-auto w-[80%]'>
-                      <div className='w-[35px] mr-8 my-auto xsm:hidden'><FaPencilAlt size={30}/></div>
+                      <div className='w-[35px] mr-8 my-auto xsm:hidden lg:block'><FaPencilAlt size={30}/></div>
                       <div className='w-[100%]'>
                       <h1 className=' text-2xl font-bold'>Create Fraction</h1>
                       <p className=' text-base'>Create a property fraction</p>
-                      <button className='w-[100%] h-[50px] border bg-green-400 rounded-lg my-2' disabled={!disabledCreateFractionStatus} onClick={handleCreateFractionStatus} style={disabledCreateFractionStatus ?  {background: '#71DF82'} : {background: 'grey'}} >Create fraction</button>
+                      <button className='w-[100%] h-[50px] border-none bg-green-400 rounded-lg my-2' disabled={!disabledCreateFractionStatus} onClick={handleCreateFractionStatus} style={disabledCreateFractionStatus ?  {background: '#71DF82'} : {background: 'grey'}} >Create fraction</button>
                       </div>
                       </div>
 
                     </div>
                     <div className='my-[18px] lg:w-[70%] xsm:w-[100%] lg:h-[150px] xsm:h-[300px] rounded-lg border flex py-4'>
                       <div className='mx-auto flex my-auto w-[80%]'>
-                      <div className='w-[35px] mr-8 my-auto xsm:hidden'><FaPencilAlt size={30}/></div>
+                      <div className='w-[35px] mr-8 my-auto xsm:hidden lg:block'><FaPencilAlt size={30}/></div>
                       <div className='w-[100%]'>
                       <h1 className=' text-2xl font-bold'>Approve Fraction</h1>
                       <p className=' text-base'>Approve Fraction Spending</p>
-                      <button className='w-[100%] h-[50px] border bg-green-400 rounded-lg my-2' disabled={!disabledApproveStatus} onClick={handleApproveStatus} style={disabledApproveStatus ? {background: '#71DF82'} : {background: 'grey'}}>Approve</button>
+                      <button className='w-[100%] h-[50px] border-none bg-green-400 rounded-lg my-2' disabled={!disabledApproveStatus} onClick={handleApproveStatus} style={disabledApproveStatus ? {background: '#71DF82'} : {background: 'grey'}}>Approve</button>
                       </div>
                       </div>
 
