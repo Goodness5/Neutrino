@@ -139,23 +139,6 @@ contract NeutrinoEstate is IERC721Receiver {
             _property.propertyStatus == Status.sale,
             "for sale only"
         );
-<<<<<<< HEAD
-        require(msg.value == amountToPay, "not enough eth");
-        require(_amount <= FractionedERC20token.totalSupply());
-        require(Registry[propertyIndex].hasFractionalized, "No buyoff");
-        require(!Registry[propertyIndex].isSold, "property Sold");
-        if (
-            block.timestamp >=
-            Registry[propertyIndex].InitialdepositTimestamp + 5 minutes
-        ) revert("time has passed");
-        if (Registry[propertyIndex].isBuyer == msg.sender) {
-            FractionedERC20token.transferFrom(
-                Registry[propertyIndex].owner,
-                msg.sender,
-                _amount
-            );
-            Registry[propertyIndex].amountPaid += amountToPay;
-=======
         
         require(!_property.isSold, "property Sold");
         require(_property.hasFractionalized, "No buyoff");
@@ -170,7 +153,6 @@ contract NeutrinoEstate is IERC721Receiver {
             
         } else {
             require(msg.value + totalPaid == totalPrice, "Invalid payment amount");
->>>>>>> f1e804136f6f28c3c09fce956bfb00e88f83a57f
         }
 
         uint token_transfer_amount = 1000 / _numPayments;

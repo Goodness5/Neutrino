@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
-import { neutrinoEstate } from "../../utils/contractInfo";
+import { neuNFT, neutrinoEstate } from "../../utils/contractInfo";
+import DisplayNFT from "../sell/DisplayNFT";
 
 const HomeGallery = () => {
   const [allProperties, setAllProperties] = useState();
@@ -13,21 +14,27 @@ const HomeGallery = () => {
     functionName: "getAllProperties",
   });
 
+  // const {
+  //   data: tokenURI,
+  //   isLoading: loadData,
+  //   isError: errorData,
+  // } = useContractRead({
+  //   address: neuNFT.address,
+  //   abi: neuNFT.abi,
+  //   functionName: "tokenURI",
+  //   args: [1],
+  // });
+
   useEffect(() => {
     setAllProperties(data);
   }, [allProperties]);
 
-  // const arr = [];
-
-  // const Params = () => {
-  //   for (let i = 0; i <= allProperties?.length - 1; i++) {
-  //     arr.push(i);
-  //   }
+  // const nft = async (uri) => {
+  //   const url = `https://ipfs.io/ipfs/${uri}`;
+  //   await axios.get(url).then((res) => setMetadata(res.data));
+  //   setImageURL(metadata.image);
+  //   console.log(url);
   // };
-
-  // Params();
-
-  // console.log(arr);
 
   console.log(allProperties);
 
@@ -36,7 +43,7 @@ const HomeGallery = () => {
       <div className="flex flex-col items-center justify-center">
         <span>
           <Image
-            src="/footerassets/rec.png"
+            src="/homeassets/photo.png"
             alt="line"
             width={100}
             height={3}
@@ -51,14 +58,7 @@ const HomeGallery = () => {
           return (
             <Link href={`/home/${item?.[3]}`} key={item[3]}>
               <div className="relative h-[15rem] w-[100%] hover:cursor-pointer">
-                <div className="absolute inset-0">
-                  <Image
-                    className="rounded-lg"
-                    src="/homeassets/Photo1.png"
-                    alt="bg img"
-                    layout="fill"
-                  />
-                </div>
+                <DisplayNFT id={item?.[3]} />
                 <div className="relative z-10 h-full flex flex-col items-start justify-end gap-4">
                   <span className="p-[1rem] bg-white w-[50%]">
                     <h1 className="text-xl font-bold">
