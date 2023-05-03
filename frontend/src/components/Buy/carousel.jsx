@@ -24,7 +24,7 @@ function Slider() {
 
   const settings = {
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -36,13 +36,20 @@ function Slider() {
   if (!isMounted) return null;
 
   return (
-    <Carousel {...settings} >
-      {images.map(({ src, alt }, index) => (
-        <div key={index} className="">
-          <Image src={src} alt={alt} className="p-0 w-full" height="800vh" width="1600px" />
-        </div>
-      ))}
-    </Carousel>
+    <div style={{ overflow: 'hidden' }}>
+      <Carousel {...settings} >
+        {images.map(({ src, alt }, index) => (
+          <div key={index} className="">
+            <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
+              <Image src={src} alt={alt} layout="fill" className="p-0" />
+            </div>
+          </div>
+        ))}
+      </Carousel>
+      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+        
+      </div>
+    </div>
   );
 }
 
