@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start md:items-start gap-4 flex-1">
             <span>
               <Image
-                src="/footer assets/Group 20.png"
+                src="/footerassets/Group 20.png"
                 alt="logo"
                 width={150}
                 height={30}
@@ -23,7 +23,7 @@ const Footer = () => {
             <span className="flex gap-2">
               <span>
                 <Image
-                  src="/footer assets/tw.png"
+                  src="/footerassets/tw.png"
                   alt="logo"
                   width={30}
                   height={30}
@@ -31,7 +31,7 @@ const Footer = () => {
               </span>
               <span>
                 <Image
-                  src="/footer assets/p.png"
+                  src="/footerassets/p.png"
                   alt="logo"
                   width={30}
                   height={30}
@@ -39,7 +39,7 @@ const Footer = () => {
               </span>
               <span>
                 <Image
-                  src="/footer assets/002-facebook-logo-button.png"
+                  src="/footerassets/002-facebook-logo-button.png"
                   alt="logo"
                   width={30}
                   height={30}
@@ -47,7 +47,7 @@ const Footer = () => {
               </span>
               <span>
                 <Image
-                  src="/footer assets/inst.png"
+                  src="/footerassets/inst.png"
                   alt="logo"
                   width={30}
                   height={30}
@@ -59,7 +59,7 @@ const Footer = () => {
             <span className="font-bold text-xl">DigitalEstate</span>
             <span className="my-[-0.4rem]">
               <Image
-                src="/footer assets/Rectangle.png"
+                src="/footerassets/Rectangle.png"
                 alt="line"
                 width={100}
                 height={3}
@@ -76,7 +76,7 @@ const Footer = () => {
             <span className="font-bold text-xl">Buy</span>
             <span className="my-[-0.4rem]">
               <Image
-                src="/footer assets/Rectangle.png"
+                src="/footerassets/Rectangle.png"
                 alt="line"
                 width={100}
                 height={3}
@@ -99,7 +99,7 @@ const Footer = () => {
             <span className="font-bold text-xl">Rent</span>
             <span className="my-[-0.4rem]">
               <Image
-                src="/footer assets/Rectangle.png"
+                src="/footerassets/Rectangle.png"
                 alt="line"
                 width={100}
                 height={3}
@@ -122,7 +122,7 @@ const Footer = () => {
             <span className="font-bold text-xl">Customers</span>
             <span className="my-[-0.4rem]">
               <Image
-                src="/footer assets/Rectangle.png"
+                src="/footerassets/Rectangle.png"
                 alt="line"
                 width={100}
                 height={3}

@@ -10,7 +10,7 @@ const Navbar = () => {
       <div className="flex justify-between flex-1">
         <div>
           <Image
-            src="/footer assets/Group 20.png"
+            src="/footerassets/Group 20.png"
             alt="logo"
             width={150}
             height={30}
@@ -19,30 +19,21 @@ const Navbar = () => {
         <div className="md:flex gap-4 font-bold items-end hidden mb-4 md:flex-row md:items-center md:mb-0">
           <span className="hover:bg-gray-300 p-2 flex gap-4 items-center md:flex-col md:gap-0 md:items-start">
             <Image
-              src="/footer assets/rec.png"
+              src="/footerassets/rec.png"
               alt="icon"
               width={5}
               height={2}
             />
-            <Link href="/">Buy</Link>
-          </span>
-          <span className="hover:bg-gray-300 p-2 flex gap-4 items-center md:flex-col md:gap-0 md:items-start">
-            <Image
-              src="/footer assets/rec.png"
-              alt="icon"
-              width={5}
-              height={2}
-            />
-            <Link href="/">Rent</Link>
+            <Link href="/buy">Explore Properties</Link>
           </span>
           <span className="hover:bg-gray-300 p-2 flex gap-4 items-center md:flex-col md:gap-0 md:items-start ">
             <Image
-              src="/footer assets/rec.png"
+              src="/footerassets/rec.png"
               alt="icon"
               width={5}
               height={2}
             />
-            <Link href="/">Sell</Link>
+            <Link href="/Sell">Sell</Link>
           </span>
         </div>
         <NavIcon />
