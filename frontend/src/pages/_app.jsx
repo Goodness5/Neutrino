@@ -20,8 +20,13 @@ const { chains, provider, webSocketProvider } = configureChains(
     polygon,
     optimism,
     arbitrum,
+<<<<<<< HEAD
     goerli,
     sepolia,
+=======
+    sepolia,
+    goerli,
+>>>>>>> f1e804136f6f28c3c09fce956bfb00e88f83a57f
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
       ? [goerli, sepolia]
       : []),

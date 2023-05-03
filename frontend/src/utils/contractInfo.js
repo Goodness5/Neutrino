@@ -677,3 +677,4 @@ export const fractionalNFT = {
     },
   ],
 };
+
