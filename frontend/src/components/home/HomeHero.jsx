@@ -11,7 +11,7 @@ const HomeHero = () => {
       </div>
       <div className="grow">
         <Image
-          src="/home assets/Background Copy.png"
+          src="/homeassets/Background Copy.png"
           alt="hero Image"
           width={800}
           height={400}
