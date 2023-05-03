@@ -1,19 +1,18 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+
+module.exports = {
   reactStrictMode: true,
   images: {
     domains: ["gateway.pinata.cloud", "ipfs.io", "ipfs.filebase.io"],
   },
-  // images: {
-  //   remotePatterns: [
-  //     {
-  //       protocol: "https",
-  //       hostname: "gateway.pinata.cloud",
-  //       port: "",
-  //       pathname: "*",
-  //     },
-  //   ],
-  // },
-};
+  webpack: (config, { isServer }) => {
+    config.resolve.extensions.push(".mjs");
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: "javascript/auto",
+    });
 
-module.exports = nextConfig;
+    return config;
+  },
+};
