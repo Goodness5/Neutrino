@@ -9,7 +9,7 @@ const HomeDescribe = () => {
         <span>
           <Image
             className="my-4"
-            src="/footer assets/rec.png"
+            src="/footerassets/rec.png"
             alt="line"
             width={100}
             height={3}

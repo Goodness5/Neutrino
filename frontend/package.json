@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.10.8",
     "@mui/material": "^5.12.2",
     "@rainbow-me/rainbowkit": "^0.12.12",
+    "axios": "^1.4.0",
     "browserify-fs": "^1.0.0",
     "ethers": "^5.7.2",
     "fs": "^0.0.1-security",
