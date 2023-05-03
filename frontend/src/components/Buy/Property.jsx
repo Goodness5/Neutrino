@@ -5,37 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PropertyDetails from "./Propertydetails";
 import { neutrinoEstate, neuNFT } from "../../utils/contractInfo.js";
-
-
-function useTokenUris(propertiesData, neuNFT) {
-  const [tokenUris, setTokenUris] = useState([]);
-
-  useEffect(() => {
-    async function generateTokenUris() {
-      if (propertiesData) {
-        const promises = propertiesData.map(async (property) => {
-          const tokenId = property.nftId;
-          const { data } = await useContractRead({
-            address: neuNFT.address,
-            abi: neuNFT.abi,
-            functionName: "tokenURI",
-            functionParams: [tokenId],
-            onError: (error) => {
-              console.error(error);
-              toast.error("Error loading image uri!");
-            },
-          });
-          return data;
-        });
-        const uris = await Promise.all(promises);
-        setTokenUris(uris);
-      }
-    }
-    generateTokenUris();
-  }, [propertiesData, neuNFT]);
-
-  return tokenUris;
-}
+import  useTokenUris  from "./imageUri";
 
 const Properties = () => {
   const { data: propertiesData, isError, isLoading } = useContractRead({
@@ -55,7 +25,10 @@ const Properties = () => {
     }
   });
 
-
+  console.log(propertiesData)
+  const tokenUris = useTokenUris(propertiesData, neuNFT);
+  
+  
   return (
     <div>
       <ToastContainer />
@@ -72,25 +45,26 @@ const Properties = () => {
           <h1 className="font-bold text-3xl">Explore our neighbourhoods</h1>
         </div>
         <div className="flex gap-4 flex-col md:flex-row">
-          {propertiesData && (
-            <React.Fragment>
-              {imageUris.map((imageUri, index) => {
-                const property = propertiesData[index];
+        {propertiesData && tokenUris && (
+  <React.Fragment>
+    {tokenUris.map((imageUri, index) => {
+      const property = propertiesData[index];
 
-                return (
-                  <div key={index} className="flex-1">
-                    <PropertyDetails
-                      img={imageUri}
-                      title={property.title}
-                      text={property.text}
-                      price={property.price}
-                    />
-                    <button className="p-4 bg-black text-white">Buy</button>
-                  </div>
-                );
-              })}
-            </React.Fragment>
-          )}
+      return (
+        <div key={index} className="flex-1">
+          <PropertyDetails
+            img={imageUri}
+            title={property.title}
+            text={property.text}
+            price={property.price}
+          />
+          <button className="p-4 bg-black text-white">Buy</button>
+        </div>
+      );
+    })}
+  </React.Fragment>
+)}
+
         </div>
       </div>
     </div>
