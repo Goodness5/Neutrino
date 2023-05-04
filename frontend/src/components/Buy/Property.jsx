@@ -41,7 +41,7 @@ const HomeGallery = () => {
           return (
             <Link href={`/description/${item?.[3]}`} key={item[3]}>
               <div className="relative h-[15rem] w-[100%] hover:cursor-pointer">
-                <DisplayNFT id={item?.[3]} />
+                <DisplayNFT id={item?.[3]} width={100} height={200} />
                 <div className="relative z-10 h-full flex flex-col items-start justify-end gap-4">
                   <span className="p-[1rem] bg-white w-[50%]">
                     <h1 className="text-xl font-bold">
