@@ -1,4 +1,3 @@
-import React from 'react';
 import DisplayNFT from "../../components/sell/DisplayNFT";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -25,13 +24,13 @@ const Description = () => {
   return (
     <div className='border-none'>
         <div style={{ position: 'relative' }} className="text-[#504b4bad]" >
-        <img className='h-[400px] container' src='/house.jpg' />
-        <DisplayNFT id={allProperties?.[ID]?.[3]} width={350} height={250} />
+
+        <DisplayNFT className='h-[400px] container' id={allProperties?.[ID]?.[3]} width={500} height={250} />
         <div style={{ position: 'absolute', top: 180, left: 880 }} className="max-w-sm rounded left-0 border mt-5 ml-5 bg-white">
     <div className="px-6  py-4">
         <span className='text-xs'>Total price</span>
       <div className='flex mb-5'>
-    <div className="font-bold text-xl text-black mb-2">$1749000</div>
+    <div className="font-bold text-xl text-black mb-2"><p>Price: {String(allProperties?.[ID]?.[6] / 10 ** 18)} ETH</p></div>
     <button className='bg-[#00B4A2] ml-20 text-white rounded p-2'>Send Request</button>
     </div>
     <hr />
