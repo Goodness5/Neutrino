@@ -9,7 +9,7 @@ const HomeGallery = () => {
   const [allProperties, setAllProperties] = useState();
 
   const { data, isLoading, isError } = useContractRead({
-    address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
+    address: neutrinoEstate.address,
     abi: neutrinoEstate.abi,
     functionName: "getAllProperties",
   });
@@ -17,8 +17,7 @@ const HomeGallery = () => {
   useEffect(() => {
     setAllProperties(data);
   }, [allProperties]);
-
-  // console.log(allProperties);
+  console.log(allProperties);
 
   return (
     <div className="flex flex-col gap-8 px-8 w-full my-[2rem]">
@@ -38,7 +37,7 @@ const HomeGallery = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
         {allProperties?.map((item) => {
           return (
-            <Link href={`/home/${item?.[3]}`} key={item[3]}>
+            <Link href={`/home/${item?.[3]}`} key={item?.[3]}>
               <div className="relative h-[15rem] w-[100%] hover:cursor-pointer mb-6">
                 <div className="absolute inset-0">
                   <DisplayNFT id={item?.[3]} width={350} height={250} />

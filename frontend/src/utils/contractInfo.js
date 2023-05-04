@@ -1,5 +1,5 @@
 export const neutrinoEstate = {
-  address: "0x0f1F702B282b0145ACA60fBe113f991d04b718F4",
+  address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
   abi: [
     {
       inputs: [{ internalType: "address", name: "_owner", type: "address" }],
@@ -677,4 +677,3 @@ export const fractionalNFT = {
     },
   ],
 };
-

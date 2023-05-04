@@ -61,14 +61,15 @@ contract NeutrinoEstate is IERC721Receiver {
         owner = _owner;
     }
 
-    function depositPropertyNft(address _nftContractAddress, uint256 _nftId, uint _noOfPayment,  uint _status, uint _price) external {
+    function depositPropertyNft(address _address, address _nftContractAddress, uint256 _nftId, uint _noOfPayment,  uint _status, uint _price) external {
+        require(_address == msg.sender, "Address not correct");
         require(_price > 0.0000002 ether, 'not enough');
         ERC721URIStorage NFT = ERC721URIStorage(_nftContractAddress);
         //approveFunction from script required
         require(_status == 0 || _status == 1, "invalid option");
-        NFT.safeTransferFrom(msg.sender, address(this), _nftId);
+        NFT.safeTransferFrom(_address, address(this), _nftId);
         PropertyInfo memory newProperty;
-        newProperty.owner = msg.sender;
+        newProperty.owner = _address;
         newProperty.nftContractAddress = _nftContractAddress;
         newProperty.nftId = _nftId;
         newProperty.hasFractionalized = false;
@@ -82,7 +83,7 @@ contract NeutrinoEstate is IERC721Receiver {
             newProperty.propertyStatus = Status.rent; 
             ForRentNFTIDS.push(_nftId);
             Rent storage newRent = rented[_nftId];
-            newRent.owner=msg.sender;
+            newRent.owner=_address;
         }
         newProperty.price = _price;
         Registry.push(newProperty);
