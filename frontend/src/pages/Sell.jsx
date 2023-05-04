@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import estateAbi from "../utils/neutroAbi.json";
 import React, { useEffect, useState } from "react";
-// import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styling from "../../styles/Home.module.css";
 import {
@@ -13,7 +13,7 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
-import { neutrinoEstate } from "../utils/contractInfo";
+import { neuNFT, neutrinoEstate } from "../utils/contractInfo";
 import { FaPencilAlt, FcCancel } from "react-icons/fa";
 import { CiNoWaitingSign } from "react-icons/ci";
 import { BsCheck2 } from "react-icons/bs";
@@ -123,9 +123,13 @@ const Sell = () => {
   //===========================
 
   const { data, isLoading, isError } = useContractRead({
-    address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
+    address: neutrinoEstate.address,
     abi: neutrinoEstate.abi,
     functionName: "getAllProperties",
+
+    onSuccess(data) {
+      toast.success(`Properties Fetched Successfully`);
+    },
   });
 
   useEffect(() => {
@@ -134,11 +138,15 @@ const Sell = () => {
 
   const [nftId, setNftId] = useState("");
 
-  const { config } = usePrepareContractWrite({
-    address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
+  const {
+    config,
+    isError: writeError,
+    error,
+  } = usePrepareContractWrite({
+    address: neutrinoEstate.address,
     abi: neutrinoEstate.abi,
     functionName: "RetrievePropertyOnDefault",
-    args: ["0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696", nftId],
+    args: [neuNFT.address, nftId],
   });
   const {
     data: writeData,
@@ -155,18 +163,19 @@ const Sell = () => {
     hash: writeData?.hash,
 
     onSuccess(data) {
-      // toast.success(`Successfully Retrieved`);
+      toast.success(`Successfully Retrieved`);
       console.log(`Successful: ${data}`);
     },
 
     onError(error) {
-      // toast.error(`Error: ${error}`);
+      toast.error(`Error: ${error}`);
       console.log(`Error: ${error}`);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    toast.warning(`Is this property rented?`);
     write?.();
   };
 
@@ -377,7 +386,7 @@ const Sell = () => {
         )}
       </div>
       <div>
-        {/* <ToastContainer /> */}
+        <ToastContainer />
         <div className="flex flex-col items-center">
           <h1>Your Properties</h1>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 justify-items-center">
@@ -436,6 +445,7 @@ const Sell = () => {
             >
               {loadData || waitLoading ? "Retrieving" : "Retrieve"}
             </button>
+            {/* {writeError && <div>{error}</div>} */}
           </form>
         </div>
 
