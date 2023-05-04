@@ -2,7 +2,6 @@ import DisplayNFT from "../../components/sell/DisplayNFT";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useContractRead } from "wagmi";
 import { neutrinoEstate } from "../../utils/contractInfo";
 import estateAbi from "../utils/neutroAbi.json";
 import {
@@ -12,7 +11,6 @@ import {
   useWaitForTransaction,
   usePrepareContractWrite,
 } from "wagmi";
-import styling from "../../styles/Home.module.css";
 
 
 const Description = () => {
