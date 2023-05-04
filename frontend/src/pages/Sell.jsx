@@ -21,6 +21,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Mint from "../components/MintForm";
+import DisplayNFT from "../components/sell/DisplayNFT";
 
 const Sell = () => {
   const { address } = useAccount();
@@ -131,14 +132,13 @@ const Sell = () => {
     setAllProperties(data);
   }, [allProperties]);
 
-  const [nftAddress, setNftAddress] = useState("");
   const [nftId, setNftId] = useState("");
 
   const { config } = usePrepareContractWrite({
     address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
     abi: neutrinoEstate.abi,
     functionName: "RetrievePropertyOnDefault",
-    args: [nftAddress, nftId],
+    args: ["0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696", nftId],
   });
   const {
     data: writeData,
@@ -380,50 +380,60 @@ const Sell = () => {
         {/* <ToastContainer /> */}
         <div className="flex flex-col items-center">
           <h1>Your Properties</h1>
-          <div className="grid grid-cols-3">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 justify-items-center">
             {allProperties?.map((item) => {
               if (item[0] == address) {
                 return (
-                  <div key={item} className="m-8">
-                    <Image
-                      src="/homeassets/Photo3.png"
-                      alt="image"
-                      width={300}
-                      height={200}
-                      className="rounded-md"
-                    />
-                    <p>
-                      Property Status:{" "}
-                      {item?.[2] == 0 ? <>For Sale</> : <>For Rent</>}
-                    </p>
-                    <p>I.D.: {String(item?.[3])}</p>
-                    <p>Price: {String(item?.[6] / 10 ** 18)} ETH</p>
+                  <div
+                    key={item?.[3]}
+                    className="m-8 shadow-xl rounded-lg pb-4"
+                  >
+                    <DisplayNFT id={item?.[3]} width={300} height={200} />
+                    <div className="flex flex-col items-center gap-4">
+                      <p>
+                        Property Status:{" "}
+                        {item?.[2] == 0 ? <>For Sale</> : <>For Rent</>}
+                      </p>
+                      <p>I.D.: {String(item?.[3])}</p>
+                      <p>Price: {String(item?.[6] / 10 ** 18)} ETH</p>
+                    </div>
                   </div>
                 );
               }
             })}
           </div>
         </div>
-        <div className="divide-2 divide-black">
+        <div className="shadow-2xl rounded-md w-[90%] md:w-[60%] lg:w-[30%] mx-auto">
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-start w-[30%] mx-auto p-4 gap-4 "
+            className="flex flex-col items-center p-4 gap-4"
           >
-            <label htmlFor="nft">NFT Contract Address: </label>
-            <input
-              type="text"
-              value={nftAddress}
-              id="nft"
-              onChange={(e) => setNftAddress(e.target.value)}
-            />
+            <h2>Retrieve Property</h2>
+
             <label htmlFor="id">NFT ID: </label>
             <input
+              className="p-4 rounded-md border-2"
               type="text"
               value={nftId}
               id="id"
               onChange={(e) => setNftId(e.target.value)}
             />
-            <button type="submit" disabled={!nftAddress || !nftId}>
+            <button
+              type="submit"
+              disabled={!nftId}
+              className="p-4 rounded-md border-2 w-[55%]"
+              style={
+                !nftId
+                  ? { backgroundColor: "grey" }
+                  : {
+                      backgroundColor: "#00b4a2",
+                      color: "white",
+                      border: "none",
+                      cursor: "pointer",
+                      boxShadow: "2px 2px 5px rgba(0,0,0,0.3)",
+                    }
+              }
+            >
               {loadData || waitLoading ? "Retrieving" : "Retrieve"}
             </button>
           </form>

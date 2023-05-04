@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
 import { neuNFT, neutrinoEstate } from "../../utils/contractInfo";
 
-const DisplayNFT = ({ id }) => {
+const DisplayNFT = ({ id, width, height }) => {
   const [metadata, setMetadata] = useState("");
   const [imageURL, setImageURL] = useState("");
 
@@ -27,18 +27,21 @@ const DisplayNFT = ({ id }) => {
     const url = `https://ipfs.io/ipfs/${uri}`;
     await axios.get(url).then((res) => setMetadata(res.data));
     setImageURL(metadata?.image);
-    console.log(url);
+    // console.log(url);
   };
 
-  console.log(tokenURI);
-  console.log(metadata?.image);
-  console.log(imageURL);
-  // console.log("metadatas::", metadata)
+  //   console.log(tokenURI);
+  //   console.log(metadata?.image);
+  //   console.log(imageURL);
 
   return (
-    <div className="absolute inset-0">
-      <Image className="rounded-lg" src={imageURL} alt="bg img" layout="fill" />
-    </div>
+    <Image
+      className="rounded-lg"
+      src={imageURL}
+      alt="bg img"
+      width={width}
+      height={height}
+    />
   );
 };
 

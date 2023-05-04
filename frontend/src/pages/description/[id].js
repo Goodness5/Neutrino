@@ -1,18 +1,36 @@
-import React from 'react';
-import Property from '../home/[id]';
-import DisplayNFT from "../sell/DisplayNFT";
+import DisplayNFT from "../../components/sell/DisplayNFT";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useContractRead } from "wagmi";
+import { neutrinoEstate } from "../../utils/contractInfo";
 
 const Description = () => {
-  
+    const { id } = useRouter().query;
+  const ID = Number(id) - 1;
+
+  const [allProperties, setAllProperties] = useState();
+
+  const { data, isLoading, isError } = useContractRead({
+    address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
+    abi: neutrinoEstate.abi,
+    functionName: "getAllProperties",
+  });
+
+  useEffect(() => {
+    setAllProperties(data);
+  }, [allProperties]);
+
   return (
     <div className='border-none'>
         <div style={{ position: 'relative' }} className="text-[#504b4bad]" >
-        <DisplayNFT className='h-[400px] container' id={item?.[3]} />
+
+        <DisplayNFT className='h-[400px] container' id={allProperties?.[ID]?.[3]} width={500} height={250} />
         <div style={{ position: 'absolute', top: 180, left: 880 }} className="max-w-sm rounded left-0 border mt-5 ml-5 bg-white">
     <div className="px-6  py-4">
         <span className='text-xs'>Total price</span>
       <div className='flex mb-5'>
-    <div className="font-bold text-xl text-black mb-2">Property.</div>
+    <div className="font-bold text-xl text-black mb-2"><p>Price: {String(allProperties?.[ID]?.[6] / 10 ** 18)} ETH</p></div>
     <button className='bg-[#00B4A2] ml-20 text-white rounded p-2'>Send Request</button>
     </div>
     <hr />

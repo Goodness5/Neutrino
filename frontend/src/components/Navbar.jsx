@@ -9,7 +9,13 @@ const Navbar = () => {
     <header className="flex flex-col md:flex-row mx-[4rem] py-[2rem] md:pb-0 md:items-center">
       <div className="flex justify-between flex-1">
         <Link href="/">
-          <Image src="/prochain.png" alt="logo" width={150} height={40} />
+          <Image
+            src="/prochain.png"
+            alt="logo"
+            width={150}
+            height={40}
+            className="animate-pulse"
+          />
         </Link>
         <div className="md:flex gap-4 font-bold items-end hidden mb-4 md:flex-row md:items-center md:mb-0">
           <span className="hover:bg-gray-300 p-2 flex gap-4 items-center md:flex-col md:gap-0 md:items-start">
@@ -19,7 +25,11 @@ const Navbar = () => {
               width={5}
               height={2}
             />
-            <Link href="/buy">Explore Properties</Link>
+            <Link href="/buy">
+              <span className="text-xl font-sans cursor-pointer">
+                Explore Properties
+              </span>
+            </Link>
           </span>
           <span className="hover:bg-gray-300 p-2 flex gap-4 items-center md:flex-col md:gap-0 md:items-start ">
             <Image
@@ -28,7 +38,9 @@ const Navbar = () => {
               width={5}
               height={2}
             />
-            <Link href="/Sell">Sell</Link>
+            <Link href="/Sell">
+              <span className="text-xl font-sans cursor-pointer">Sell</span>
+            </Link>
           </span>
         </div>
         <NavIcon />

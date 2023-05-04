@@ -3,33 +3,33 @@ import React from "react";
 
 const HomePartners = () => {
   return (
-    <div className="flex flex-col md:flex-row gap-4 justify-between w-full px-8 items-center opacity-20">
+    <div className="flex flex-col md:flex-row gap-8 md:gap-0 justify-between w-full px-[4rem] items-center opacity-20">
       <Image
-        src="/homeassets/UI DigitalEstate (Copy) (1)/0_-UxHK_uftidJ0oAY.png"
+        src="/homeassets/DigitalEstate/spotify.png"
         alt="image"
         width={100}
         height={50}
       />
       <Image
-        src="/homeassets/UI DigitalEstate (Copy) (1)/43_digital_logo_black_HI.png"
+        src="/homeassets/DigitalEstate/ion_know.png"
         alt="image"
         width={100}
         height={50}
       />
       <Image
-        src="/homeassets/UI DigitalEstate (Copy) (1)/first-home-robot-that-sees-and-tracks-intruders-indiegogo-5344.png"
+        src="/homeassets/DigitalEstate/google.png"
         alt="image"
         width={100}
         height={50}
       />
       <Image
-        src="/homeassets/UI DigitalEstate (Copy) (1)/large_slack-imgs.com.png"
+        src="/homeassets/DigitalEstate/esa.png"
         alt="image"
         width={100}
         height={50}
       />
       <Image
-        src="/homeassets/UI DigitalEstate (Copy) (1)/Spotify_logo_black.png"
+        src="/homeassets/DigitalEstate/vimeo.png"
         alt="image"
         width={100}
         height={50}
