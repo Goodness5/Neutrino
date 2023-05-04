@@ -2,7 +2,7 @@ import Discover from "../components/Buy/Discover";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-// import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   useAccount,
@@ -32,6 +32,10 @@ const Sell = () => {
     address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
     abi: neutrinoEstate.abi,
     functionName: "getAllProperties",
+
+    onSuccess(data) {
+      toast.success(`Properties Fetched Successfully`);
+    },
   });
 
   useEffect(() => {
@@ -40,7 +44,11 @@ const Sell = () => {
 
   const [nftId, setNftId] = useState("");
 
-  const { config } = usePrepareContractWrite({
+  const {
+    config,
+    isError: writeError,
+    error,
+  } = usePrepareContractWrite({
     address: "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f",
     abi: neutrinoEstate.abi,
     functionName: "RetrievePropertyOnDefault",
@@ -61,18 +69,19 @@ const Sell = () => {
     hash: writeData?.hash,
 
     onSuccess(data) {
-      // toast.success(`Successfully Retrieved`);
+      toast.success(`Successfully Retrieved`);
       console.log(`Successful: ${data}`);
     },
 
     onError(error) {
-      // toast.error(`Error: ${error}`);
+      toast.error(`Error: ${error}`);
       console.log(`Error: ${error}`);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    toast.warning(`Is this property rented?`);
     write?.();
   };
 
@@ -283,7 +292,7 @@ const Sell = () => {
         )}
       </div>
       <div>
-        {/* <ToastContainer /> */}
+        <ToastContainer />
         <div className="flex flex-col items-center">
           <h1>Your Properties</h1>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 justify-items-center">
@@ -342,6 +351,7 @@ const Sell = () => {
             >
               {loadData || waitLoading ? "Retrieving" : "Retrieve"}
             </button>
+            {/* {writeError && <div>{error}</div>} */}
           </form>
         </div>
 
