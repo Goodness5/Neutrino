@@ -154,7 +154,7 @@ contract NeutrinoEstate is IERC721Receiver {
             require(msg.value + totalPaid == totalPrice, "Invalid payment amount");
         }
         if (_property.price != msg.value) {
-        uint token_transfer_amount = 1000 / _numPayments;
+        uint token_transfer_amount = 1000 ether / _numPayments;
             FractionedERC20token.transferFrom(
                 _property.owner,
                 msg.sender,
