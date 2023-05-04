@@ -224,9 +224,32 @@
   width: 20%;
 }
 
+.buttonC {
+  padding: 10px 20px;
+  background-color: #00b4a2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+}
+
 .button:hover {
   background-color: #00b4a2;
   transform: translateY(-2px);
+}
+
+.exitclaim {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  height: auto;
+}
+
+.shift {
+  margin-left: 10rem;
 }
 
 @media screen and (max-width: 780px) {
@@ -262,6 +285,17 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     width: 50%;
+  }
+
+  .buttonC {
+    padding: 10px 20px;
+    background-color: #00b4a2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
   }
 
   .dis {
