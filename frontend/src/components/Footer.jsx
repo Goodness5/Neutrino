@@ -8,14 +8,9 @@ const Footer = () => {
     <footer>
       <div className={`${styles.footer}`}>
         <div className="flex flex-col md:flex-row gap-8 items-center md:items-start justify-between py-[1rem] mx-[4rem]">
-          <div className="flex flex-col items-center md:items-start md:items-start gap-4 flex-1">
+          <div className="flex flex-col items-center md:items-start gap-4 flex-1">
             <span>
-              <Image
-                src="/footer assets/Group 20.png"
-                alt="logo"
-                width={150}
-                height={30}
-              />
+              <Image src="/prochain.png" alt="logo" width={150} height={40} />
             </span>
             <span className="text-center md:text-left">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -23,7 +18,7 @@ const Footer = () => {
             <span className="flex gap-2">
               <span>
                 <Image
-                  src="/footer assets/tw.png"
+                  src="/footerassets/tw.png"
                   alt="logo"
                   width={30}
                   height={30}
@@ -31,7 +26,7 @@ const Footer = () => {
               </span>
               <span>
                 <Image
-                  src="/footer assets/p.png"
+                  src="/footerassets/p.png"
                   alt="logo"
                   width={30}
                   height={30}
@@ -39,7 +34,7 @@ const Footer = () => {
               </span>
               <span>
                 <Image
-                  src="/footer assets/002-facebook-logo-button.png"
+                  src="/footerassets/002-facebook-logo-button.png"
                   alt="logo"
                   width={30}
                   height={30}
@@ -47,7 +42,7 @@ const Footer = () => {
               </span>
               <span>
                 <Image
-                  src="/footer assets/inst.png"
+                  src="/footerassets/inst.png"
                   alt="logo"
                   width={30}
                   height={30}
@@ -56,10 +51,10 @@ const Footer = () => {
             </span>
           </div>
           <div className="flex flex-col items-center md:items-start gap-4 flex-1">
-            <span className="font-bold text-xl">DigitalEstate</span>
+            <span className="font-bold text-xl">ProChain</span>
             <span className="my-[-0.4rem]">
               <Image
-                src="/footer assets/Rectangle.png"
+                src="/footerassets/Rectangle.png"
                 alt="line"
                 width={100}
                 height={3}
@@ -76,7 +71,7 @@ const Footer = () => {
             <span className="font-bold text-xl">Buy</span>
             <span className="my-[-0.4rem]">
               <Image
-                src="/footer assets/Rectangle.png"
+                src="/footerassets/Rectangle.png"
                 alt="line"
                 width={100}
                 height={3}
@@ -99,7 +94,7 @@ const Footer = () => {
             <span className="font-bold text-xl">Rent</span>
             <span className="my-[-0.4rem]">
               <Image
-                src="/footer assets/Rectangle.png"
+                src="/footerassets/Rectangle.png"
                 alt="line"
                 width={100}
                 height={3}
@@ -122,7 +117,7 @@ const Footer = () => {
             <span className="font-bold text-xl">Customers</span>
             <span className="my-[-0.4rem]">
               <Image
-                src="/footer assets/Rectangle.png"
+                src="/footerassets/Rectangle.png"
                 alt="line"
                 width={100}
                 height={3}

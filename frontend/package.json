@@ -9,9 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/material": "^5.12.2",
     "@rainbow-me/rainbowkit": "^0.12.12",
+    "axios": "^1.4.0",
+    "browserify-fs": "^1.0.0",
     "ethers": "^5.7.2",
+    "fs": "^0.0.1-security",
+    "memfs": "^3.5.1",
+    "mime": "^3.0.0",
     "next": "^12.1.6",
+    "nft.storage": "^7.0.3",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -31,5 +40,10 @@
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2",
     "typescript": "^4.9.4"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

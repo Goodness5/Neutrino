@@ -27,16 +27,16 @@ contract EstateTest is Test {
 function testMintAndDepositAndFraction() public {
     vm.startPrank(seller);
     nfttoken.safeMint("bafybeigamlmm7clu7a7fwo6ujv4zrwslk7v54pm2kb4dl7nimo5obh3h7i", address(estate));
-    estate.depositPropertyNft(address(nfttoken), 0, 0, 1 ether);
-    address fractioned = estate.createFraction(address(nfttoken), 0, 1000);
+    estate.depositPropertyNft(address(nfttoken), 0, 0, 0, 1 ether);
+    address fractioned = estate.createFraction(address(nfttoken), 0, "Neutrino");
     Fractionned = fractioned;
     FractionToken(Fractionned).approve(address(estate), FractionToken(Fractionned).totalSupply());
     vm.stopPrank();
 
     vm.startPrank(seller2);
     nfttoken.safeMint("bafybeigamlmm7clu7a7fwo6ujv4zrwslk7v54pm2kb4dl7nimo5obh3h7i", address(estate));
-    estate.depositPropertyNft(address(nfttoken), 1, 1, 1 ether);
-    address fractionedt = estate.createFraction(address(nfttoken), 1, 1000);
+    estate.depositPropertyNft(address(nfttoken), 1, 1, 1, 1 ether);
+    address fractionedt = estate.createFraction(address(nfttoken), 1, "Neutrino");
     Fractionned = fractionedt;
     FractionToken(fractionedt).approve(address(estate), FractionToken(fractionedt).totalSupply());
     vm.stopPrank();
@@ -48,8 +48,8 @@ function testBuyPropinstallment () public{
     vm.startPrank(buyer);
     vm.deal(buyer, 5 ether);
     FractionToken(Fractionned).approve(address(estate), FractionToken(Fractionned).totalSupply());
-    estate.buyPropertyInstallMent{value: 0.0001 ether}(500, 0, address(nfttoken));
-    estate.buyPropertyInstallMent{value: 0.0001 ether}(500, 0, address(nfttoken));
+    estate.buyPropertyInstallMent{value: 0.0001 ether}(0, address(nfttoken));
+    estate.buyPropertyInstallMent{value: 0.0001 ether}(0, address(nfttoken));
     estate.claimProperty(address(nfttoken), 0);
     vm.stopPrank();
 }

@@ -11,8 +11,8 @@ import styling from "../../styles/Home.module.css";
 
 function reclaim() {
   const { address } = useAccount();
-  const CONTRACT = "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f";
-  const nftAddr = "0x34eB21Ba2F1CfB9Fb738e8AFA09AB1357fb1a6D1";
+  const CONTRACT = "0xEB86d6F284b6dE1aC0AF20d04815Ea8c1F04c1eF";
+  const nftAddr = "0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696";
   // const [nftContractAdress, setNftContractAddress] = useState("");
   const [nftId, setNftId] = useState(null);
 

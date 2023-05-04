@@ -11,8 +11,8 @@ import styling from "../../styles/Home.module.css";
 
 function claimprop() {
   const { address } = useAccount();
-  const CONTRACT = "0x1f6feeed3fb9696a5fb3a6ab78b5b3c7e1eb2f5f";
-  const nftAddr = "0x34eB21Ba2F1CfB9Fb738e8AFA09AB1357fb1a6D1";
+  const CONTRACT = "0xEB86d6F284b6dE1aC0AF20d04815Ea8c1F04c1eF";
+  const nftAddr = "0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696";
   // const [nftContractAdress, setNftContractAddress] = useState("");
   const [nftId, setNftId] = useState(null);
   const [status, setStatus] = useState(null);
@@ -105,17 +105,7 @@ function claimprop() {
       <div className={styling.exitclaim}>
         <form className={styling.form} onSubmit={handleSubmit2}>
           <h2>Enter Property Details to Claim Payment.</h2>
-          {/* <label className={styling.label}>Property Contract Address:</label>
-          <input
-            className="form-input"
-            type="text"
-            placeholder="Enter property contract address"
-            onChange={(e) => setNftContractAddress(e.target.value)}
-          /> */}
-
-          <br></br>
-          <hr></hr>
-          <hr></hr>
+        
 
           <label className={styling.label}>Property ID:</label>
           <input
@@ -127,11 +117,13 @@ function claimprop() {
 
           <button className={styling.buttonC} type="submit">
             {reclaimIsLoading || createWaitIsLoading
-              ? "Reclaiming Payment..."
-              : "Reclaim Payment"}
+              ? "Claiming Payment..."
+              : "Claim Payment"}
           </button>
         </form>
 
+          <br />
+          <br />
         {/* 
         ==========================================================
         ==========================================================
@@ -140,17 +132,8 @@ function claimprop() {
       */}
 
         <form className={styling.form} onSubmit={handleSubmit3}>
-          <h2>Fill in Details Below To Exited Property.</h2>
-          {/* <label className={styling.label}>Property Contract Address:</label> */}
-          {/* <input
-            className="form-input"
-            type="text"
-            placeholder="Enter property contract address"
-            onChange={(e) => setNftContractAddress(e.target.value)}
-          /> */}
-
-          <br></br>
-          <hr></hr>
+          <h2>Fill in Details Below To Remove Property.</h2>
+          
           <hr></hr>
 
           <label className={styling.label}>Property ID:</label>
@@ -162,8 +145,7 @@ function claimprop() {
           />
 
           <br></br>
-          <hr></hr>
-          <hr></hr>
+         
 
           <label className={styling.label}>Property Status:</label>
           <input
@@ -175,8 +157,8 @@ function claimprop() {
 
           <button className={styling.buttonC} type="submit">
             {exitIsLoading || exitWaitIsLoading
-              ? "Exiting Property..."
-              : "Exit Property"}
+              ? "Removing Property..."
+              : "Remove Property"}
           </button>
         </form>
       </div>
