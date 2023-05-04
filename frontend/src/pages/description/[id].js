@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { neutrinoEstate } from "../../utils/contractInfo";
-import estateAbi from "../utils/neutroAbi.json";
+import estateAbi from "../../utils/neutroAbi.json";
 import {
   useAccount,
   useContractRead,
