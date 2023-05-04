@@ -4,10 +4,6 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
 import { neutrinoEstate } from "../../utils/contractInfo";
-
-//=======================================
-//=======================================
-//=====================================
 import estateAbi from "../utils/neutroAbi.json";
 import {
   useAccount,
@@ -23,14 +19,12 @@ const Description = () => {
   const { id } = useRouter().query;
   const ID = Number(id);
 
-  //=======================================
-  //=======================================
-  //=======================================
+
   const { address } = useAccount();
   const CONTRACT = "0xEB86d6F284b6dE1aC0AF20d04815Ea8c1F04c1eF";
   const nftAddr = "0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696";
   // const [nftContractAdress, setNftContractAddress] = useState("");
-  const [nftId, setNftId] = useState(null);
+  // const [nftId, setNftId] = useState(null);
 
   const { config: config1 } = usePrepareContractWrite({
     address: CONTRACT,
