@@ -19,7 +19,7 @@ const Footer = () => {
               />
             </span>
             <span className="text-center md:text-left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              A Blockchain based tokenized real estate platform
             </span>
             <span className="flex gap-2">
               <span>
