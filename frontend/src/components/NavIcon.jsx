@@ -43,7 +43,7 @@ const NavIcon = () => {
               height={2}
             />
             <Link href="/buy">
-              <span>Explore Properties</span>
+              <span>Explore</span>
             </Link>
           </span>
           <span className="bg-gray-200 hover:bg-gray-300 rounded-lg p-2 flex gap-2 items-center">
@@ -55,6 +55,30 @@ const NavIcon = () => {
             />
             <Link href="/Sell">
               <span>Sell</span>
+            </Link>
+          </span>
+          <span className="hover:bg-gray-300 p-2 flex gap-4 items-center md:flex-col md:gap-0 md:items-start ">
+            <Image
+              src="/footerassets/rec.png"
+              alt="icon"
+              width={5}
+              height={2}
+            />
+            <Link href="https://app.gitbook.com/invite/xtM7vQwAwbHXi487Pe0d/sHLIuQMtnr3NQ3YUOs3i">
+              <span className="text-xl font-sans cursor-pointer">Docs</span>
+            </Link>
+          </span>
+          <span className="hover:bg-gray-300 p-2 flex gap-4 items-center md:flex-col md:gap-0 md:items-start ">
+            <Image
+              src="/footerassets/rec.png"
+              alt="icon"
+              width={5}
+              height={2}
+            />
+            <Link href="https://gamma.app/docs/Making-Real-Estate-Smarter-with-Tokenization-ghi8c5kw2dravb6">
+              <span className="text-xl font-sans cursor-pointer">
+                Pitch-Deck
+              </span>
             </Link>
           </span>
           <ConnectButton />

@@ -234,9 +234,6 @@ const Sell = () => {
   return (
     <div>
       <div>
-        <h1>SELL PAGE</h1>
-        <Button onClick={handleOpen}> Sell Property</Button>
-
         {open && (
           <Dialog open={open} onClose={!open} maxWidth="lg" fullWidth={true}>
             <div className="flex mx-auto justify-center h-auto lg:w-[70%] sm:w[200%]">
@@ -412,10 +409,10 @@ const Sell = () => {
             })}
           </div>
         </div>
-        <div className="shadow-2xl rounded-md w-[90%] md:w-[60%] lg:w-[30%] mx-auto">
+        <div className="shadow-xl rounded-md w-[70%] mx-auto mt-8 bg-[#9cf0e7] p-[2rem] flex flex-col md:flex-row md:justify-evenly md:items-center">
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center p-4 gap-4"
+            className="flex flex-col items-center p-4 gap-8 bg-white rounded-md shadow-lg"
           >
             <h2>Retrieve Property</h2>
 
@@ -447,15 +444,21 @@ const Sell = () => {
             </button>
             {/* {writeError && <div>{error}</div>} */}
           </form>
-        </div>
 
+          <Button
+            onClick={handleOpen}
+            className="bg-green-800 hover:bg-green-600 hover:border-2 text-white mt-8 p-4 shadow-xl"
+          >
+            {" "}
+            Upload Property
+          </Button>
+        </div>
         <Discover />
       </div>
 
       <div className={styling.exitclaim}>
         <form className={styling.form} onSubmit={handleSubmit2}>
           <h2>Enter Property Details to Claim Payment.</h2>
-        
 
           <label className={styling.label}>Property ID:</label>
           <input
@@ -472,8 +475,8 @@ const Sell = () => {
           </button>
         </form>
 
-          <br />
-          <br />
+        <br />
+        <br />
         {/* 
         ==========================================================
         ==========================================================
@@ -483,7 +486,7 @@ const Sell = () => {
 
         <form className={styling.form} onSubmit={handleSubmit3}>
           <h2>Fill in Details Below To Remove Property.</h2>
-          
+
           <hr></hr>
 
           <label className={styling.label}>Property ID:</label>
@@ -495,7 +498,6 @@ const Sell = () => {
           />
 
           <br></br>
-         
 
           <label className={styling.label}>Property Status:</label>
           <input

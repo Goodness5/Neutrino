@@ -8,14 +8,12 @@ const HomeImage = () => {
         className="px-4 py-[10rem] md:px-[10rem] text-white text-center flex flex-col gap-4"
         style={{ backgroundImage: "url(/homeassets/photo.png)" }}
       >
-        <p>
-          «Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat»
+        <p className="text-2xl">
+          Prochain is a decentralized application (Dapp) built on the blockchain
+          that allows property owners to rent and sell their properties using
+          fractionalized tokens. The platform also enables buyers to purchase
+          and rent properties using these tokens.
         </p>
-
-        <h2>John Black</h2>
       </div>
     </div>
   );

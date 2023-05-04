@@ -18,33 +18,33 @@ const HomeDescribe = () => {
         <h1 className="text-2xl font-bold">
           Discover RealEstate trends in market
         </h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        <p>A Blockchain based tokenized real estate platform</p>
       </div>
-      <div className="flex flex-col items-center md:flex-row gap-4">
+      <div className="flex flex-col items-start md:flex-row gap-4">
         <HomeDescribeDetails
           number="01."
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-          info="Adipiscing elit"
+          text="Prochain allows property owners to easily sell fractions of their properties"
+          info="Increased Liquidity"
         />
         <HomeDescribeDetails
           number="02."
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-          info="Adipiscing elit"
+          text="Prochain eliminates intermediaries, reducing transaction costs"
+          info="Lower Transaction Costs"
         />
         <HomeDescribeDetails
           number="03."
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-          info="Adipiscing elit"
+          text="The use of smart contracts ensures that all transactions are transparent and secure"
+          info="Transparency and Security"
         />
         <HomeDescribeDetails
           number="04."
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-          info="Adipiscing elit"
+          text="Prochain provides a platform for investors to invest in real estate with lower capital requirements"
+          info="Increased Access"
         />
         <HomeDescribeDetails
           number="05."
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-          info="Adipiscing elit"
+          text="Prochain eliminates intermediaries, reducing transaction costs"
+          info="Lower Transaction Costs"
         />
       </div>
     </div>

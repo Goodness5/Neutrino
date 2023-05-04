@@ -17,28 +17,29 @@ const HomeGallery = () => {
   useEffect(() => {
     setAllProperties(data);
   }, [allProperties]);
-  console.log(allProperties);
+  // console.log(allProperties);
 
   return (
     <div className="flex flex-col gap-8 px-8 w-full my-[2rem]">
       <div className="flex flex-col items-center justify-center">
         <span>
           <Image
-            src="/homeassets/photo.png"
+            src="/footerassets/rec.png"
             alt="line"
             width={100}
             height={3}
           />
         </span>
+        <br />
         <h1 className="font-bold text-3xl text-center">
           Explore our neighbourhoods
         </h1>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-        {allProperties?.map((item) => {
+        {allProperties?.map((item, i) => {
           return (
-            <Link href={`/home/${item?.[3]}`} key={item?.[3]}>
-              <div className="relative h-[15rem] w-[100%] hover:cursor-pointer mb-6">
+            <Link href={`/home/${i}`} key={i}>
+              <div className="relative h-[15rem] w-[100%] hover:cursor-pointer hover:scale-125 mb-6">
                 <div className="absolute inset-0">
                   <DisplayNFT id={item?.[3]} width={350} height={250} />
                 </div>

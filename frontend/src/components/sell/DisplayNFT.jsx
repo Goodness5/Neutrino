@@ -25,7 +25,7 @@ const DisplayNFT = ({ id, width, height }) => {
 
   const nft = async (uri) => {
     const url = `https://ipfs.io/ipfs/${uri}`;
-    await axios.get(url).then((res) => setMetadata(res.data));
+    await axios.get(url).then((res) => setMetadata(res?.data));
     setImageURL(metadata?.image);
   };
 

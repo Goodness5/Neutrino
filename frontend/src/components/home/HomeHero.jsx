@@ -7,7 +7,7 @@ const HomeHero = () => {
       <div className="flex flex-col gap-4 md:w-[35%] text-center md:text-left">
         <span>Prochain is</span>
         <h1 className="font-bold text-5xl">The real estate marketplace</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        <p>A Blockchain based tokenized real estate platform</p>
       </div>
       <div className="grow">
         <Image
@@ -15,6 +15,7 @@ const HomeHero = () => {
           alt="hero Image"
           width={800}
           height={400}
+          className="rounded-md hover:animate-pulse"
         />
       </div>
     </div>
