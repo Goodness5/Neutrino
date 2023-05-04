@@ -1,99 +1,18 @@
-import { useState, React, useEffect } from "react";
-import estateAbi from "../utils/neutroAbi.json";
-import {
-  useAccount,
-  useContractRead,
-  useContractWrite,
-  useWaitForTransaction,
-  usePrepareContractWrite,
-} from "wagmi";
-import styling from "../../styles/Home.module.css";
+import React from 'react';
+import Property from '../home/[id]';
+import DisplayNFT from "../sell/DisplayNFT";
 
 const Description = () => {
-  const { address } = useAccount();
-  const CONTRACT = "0xEB86d6F284b6dE1aC0AF20d04815Ea8c1F04c1eF";
-  const nftAddr = "0x32F7a08bBE5Edd19C64d52c3E4C47676492AE696";
-  // const [nftContractAdress, setNftContractAddress] = useState("");
-  const [nftId, setNftId] = useState(null);
-
-  const { config: config1 } = usePrepareContractWrite({
-    address: CONTRACT,
-    abi: estateAbi,
-    functionName: "reclaimAmountPaid",
-    args: [nftAddr, nftId],
-  });
-
-  const {
-    data: reclaimData,
-    isLoading: reclaimIsLoading,
-    write: reclaim,
-  } = useContractWrite(config1);
-
-  const { data: createWaitData, isLoading: createWaitIsLoading } =
-    useWaitForTransaction({
-      data: reclaimData?.hash,
-
-      onSuccess(data) {
-        console.log("SUCCESSFULLY reclaimed Payment: ", data);
-        alert("Succesfully Claimed");
-      },
-
-      onError(error) {
-        console.log("Encountered error: ", error);
-        alert("Encountered Error");
-      },
-    });
-
-  useEffect(() => {
-    if (reclaimData) {
-      console.log(reclaimData);
-    }
-  }, [reclaimData]);
-
-  const handleSubmit2 = (e) => {
-    e.preventDefault();
-
-    reclaim?.();
-  };
+  
   return (
     <div className='border-none'>
-      <div className={styling.exitclaim}>
-        <form className={styling.form} onSubmit={handleSubmit2}>
-          <h1>Enter property Details to reclaim.</h1>
-          {/* <label className={styling.label}>Property Contract Address:</label>
-          <input
-            className="form-input"
-            type="text"
-            placeholder="Enter property contract address"
-            onChange={(e) => setNftContractAddress(e.target.value)}
-          /> */}
-
-          <br></br>
-          <hr></hr>
-          <hr></hr>
-
-          <label className={styling.label}>Property ID:</label>
-          <input
-            className="form-input"
-            type="number"
-            placeholder="Enter property ID"
-            onChange={(e) => setNftId(e.target.value)}
-          />
-
-          <button className={styling.buttonC} type="submit">
-            {reclaimIsLoading || createWaitIsLoading
-              ? "Reclaiming Payment..."
-              : "Reclaim Payment"}
-          </button>
-        </form>
-      </div>
         <div style={{ position: 'relative' }} className="text-[#504b4bad]" >
-        <img className='h-[400px] container' src="/house.jpg" alt="" />
+        <DisplayNFT className='h-[400px] container' id={item?.[3]} />
         <div style={{ position: 'absolute', top: 180, left: 880 }} className="max-w-sm rounded left-0 border mt-5 ml-5 bg-white">
     <div className="px-6  py-4">
         <span className='text-xs'>Total price</span>
       <div className='flex mb-5'>
-    <div className="font-bold text-xl text-black mb-2">1,700,0000</div>
+    <div className="font-bold text-xl text-black mb-2">Property.</div>
     <button className='bg-[#00B4A2] ml-20 text-white rounded p-2'>Send Request</button>
     </div>
     <hr />

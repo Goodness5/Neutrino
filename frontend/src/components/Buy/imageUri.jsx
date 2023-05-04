@@ -2,32 +2,37 @@ import { useEffect, useState } from 'react';
 import { useContractRead } from 'wagmi';
 import { neuNFT } from '../../utils/contractInfo';
 
-const usePropertyImageUri = (tokenId) => {
-  const [imageUri, setImageUri] = useState(null);
+const usePropertyImageUris = (tokenIds) => {
+  const [imageUris, setImageUris] = useState([]);
 
   useEffect(() => {
-    const fetchImageUri = async () => {
-      try {
-        const { data } = await useContractRead({
-          address: neuNFT.address,
-          abi: neuNFT.abi,
-          functionName: 'tokenURI',
-          functionParams: [tokenId],
-        });
+    const fetchImageUris = async () => {
+      const uris = await Promise.all(tokenIds.map(async (tokenId) => {
+        try {
+          const { data } = await useContractRead({
+            address: neuNFT.address,
+            abi: neuNFT.abi,
+            functionName: 'tokenURI',
+            functionParams: [tokenId],
+          });
 
-        const ipfsHash = data.replace('ipfs://', '');
-        const uri = 'https://ipfs.infura.io/ipfs/${ipfsHash}';
+          const ipfsHash = data.replace('ipfs://', '');
+          const uri = `https://ipfs.infura.io/ipfs/${ipfsHash}`;
+          return uri;
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
+      }));
 
-        setImageUri(uri);
-      } catch (error) {
-        console.error(error);
-      }
+      setImageUris(uris);
     };
 
-    fetchImageUri();
-  }, [tokenId]);
+    fetchImageUris();
+  }, [tokenIds]);
 
-  return imageUri;
+  return imageUris;
 };
 
-export default usePropertyImageUri;
+
+export default usePropertyImageUris;
