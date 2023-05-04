@@ -61,13 +61,7 @@ function reclaim() {
       <div className={styling.exitclaim}>
         <form className={styling.form} onSubmit={handleSubmit2}>
           <h1>Enter property Details to reclaim.</h1>
-          {/* <label className={styling.label}>Property Contract Address:</label>
-          <input
-            className="form-input"
-            type="text"
-            placeholder="Enter property contract address"
-            onChange={(e) => setNftContractAddress(e.target.value)}
-          /> */}
+      
 
           <br></br>
           <hr></hr>
