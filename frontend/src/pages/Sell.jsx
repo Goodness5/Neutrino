@@ -13,7 +13,9 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
+// import estateAbi from "../utils/neutroAbi.json";
 import { neuNFT, neutrinoEstate } from "../utils/contractInfo";
+// import styling from "../../styles/Home.module.css";
 import { FaPencilAlt, FcCancel } from "react-icons/fa";
 import { CiNoWaitingSign } from "react-icons/ci";
 import { BsCheck2 } from "react-icons/bs";
